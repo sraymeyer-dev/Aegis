@@ -1,0 +1,16 @@
+[
+  { "when": { "contactDetected": { "id": "c_fiac_1" } }, "intent": "order:select", "payload": { "id": "c_fiac_1" } },
+  { "when": { "contactDetected": { "id": "c_fiac_1" } }, "intent": "order:iff", "payload": { "id": "c_fiac_1" } },
+  { "when": { "contactDetected": { "id": "c_fiac_1" } }, "intent": "order:hail", "payload": { "id": "c_fiac_1" } },
+  { "when": { "contactWithin": { "id": "c_fiac_1", "nm": 24 } }, "intent": "order:illuminate", "payload": { "id": "c_fiac_1" } },
+
+  { "whenNodeActive": "n_fiac_choice", "intent": "dialogue:choose", "payload": { "optionId": "o_fiac_free" } },
+
+  { "when": { "contactDetected": { "id": "c_airbus" } }, "intent": "order:select", "payload": { "id": "c_airbus" } },
+  { "when": { "contactDetected": { "id": "c_airbus" } }, "intent": "order:iff", "payload": { "id": "c_airbus" } },
+  { "whenNodeActive": "n_air_choice", "intent": "dialogue:choose", "payload": { "optionId": "o_air_illuminate" } },
+  { "when": { "all": [ { "roeIs": "free" }, { "contactWithin": { "id": "c_airbus", "nm": 70 } } ] },
+    "intent": "order:declare", "payload": { "id": "c_airbus" } },
+  { "when": { "all": [ { "roeIs": "free" }, { "contactWithin": { "id": "c_airbus", "nm": 60 } } ] },
+    "intent": "order:engage", "payload": { "id": "c_airbus", "weapon": "sm2" }, "repeat": true }
+]

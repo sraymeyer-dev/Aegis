@@ -1,0 +1,16 @@
+{
+  "01-strait-transit": {
+    "procedural": {
+      "outcome": "clean",
+      "rating": "S"
+    },
+    "timid": {
+      "outcome": "tanker_lost",
+      "rating": "F"
+    },
+    "trigger-happy": {
+      "outcome": "inquiry_neutral",
+      "rating": "INQUIRY"
+    }
+  }
+}

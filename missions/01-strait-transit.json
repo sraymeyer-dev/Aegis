@@ -1,0 +1,1265 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "id": "01-strait-transit",
+    "title": "Strait Transit",
+    "subtitle": "Strait of Hormuz \u00b7 0340 local",
+    "briefing": "## TASKING\n\nEscort **MV ARGO SPIRIT** east through the inbound traffic lane to the open-water gate at the eastern end of the strait.\n\nTraffic at this hour is almost entirely civilian. Fishing dhows work the shoals north of the lane and do not answer radio. Commercial air out of Bandar Abbas climbs through the strait on a published departure.\n\nSmall-craft activity has been reported in the last seventy-two hours. Nothing confirmed.\n\n**ROE: WEAPONS TIGHT.** Engagement requires a confirmed hostile or explicit authorisation.\n\nHold escort station within 5 nm of ARGO SPIRIT. She makes 12 knots and she does not manoeuvre.",
+    "difficulty": 2,
+    "durationLimit": 3600,
+    "initialRoe": "tight",
+    "origin": {
+      "lat": 26.57,
+      "lon": 56.25
+    }
+  },
+  "ownship": {
+    "name": "USS VALLEY FORGE",
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "course": 110,
+    "speed": 14,
+    "magazines": {
+      "sm2": 12,
+      "harpoon": 8,
+      "gun": 200,
+      "asroc": 0
+    },
+    "sensors": {
+      "radarRange": 120,
+      "surfaceRange": 25,
+      "esmRange": 140
+    }
+  },
+  "contacts": [
+    {
+      "id": "c_argo",
+      "name": "MV ARGO SPIRIT",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "friendly",
+        "type": "crude tanker"
+      },
+      "pos": {
+        "x": -3,
+        "y": 1.5
+      },
+      "course": 110,
+      "speed": 14,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 11,
+            "y": -3.5
+          },
+          {
+            "x": 24,
+            "y": -8
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "large",
+        "emitting": true,
+        "iffMode": "civil"
+      },
+      "hp": 300
+    },
+    {
+      "id": "c_dhow_1",
+      "name": "Dhow",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "neutral",
+        "type": "fishing vessel"
+      },
+      "pos": {
+        "x": 14,
+        "y": 8
+      },
+      "course": 297,
+      "speed": 8,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 2,
+            "y": 14
+          },
+          {
+            "x": -10,
+            "y": 18
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": false,
+        "iffMode": "none"
+      },
+      "hp": 15
+    },
+    {
+      "id": "c_dhow_2",
+      "name": "Dhow",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "neutral",
+        "type": "fishing vessel"
+      },
+      "pos": {
+        "x": 20,
+        "y": 5
+      },
+      "course": 218,
+      "speed": 7,
+      "spawnAt": 1400,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 6,
+            "y": -6
+          },
+          {
+            "x": -4,
+            "y": -12
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": false,
+        "iffMode": "none"
+      },
+      "hp": 15
+    },
+    {
+      "id": "c_airbus",
+      "name": "IR655 heavy",
+      "domain": "air",
+      "truth": {
+        "allegiance": "neutral",
+        "type": "airliner"
+      },
+      "pos": {
+        "x": -70,
+        "y": 78
+      },
+      "course": 128,
+      "speed": 310,
+      "alt": 7000,
+      "spawnAt": 900,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 88,
+            "y": -45
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "large",
+        "emitting": true,
+        "iffMode": "civil"
+      },
+      "hp": 40
+    },
+    {
+      "id": "c_orion",
+      "name": "NAVY 552",
+      "domain": "air",
+      "truth": {
+        "allegiance": "friendly",
+        "type": "maritime patrol aircraft"
+      },
+      "pos": {
+        "x": 46,
+        "y": 40
+      },
+      "course": 225,
+      "speed": 240,
+      "alt": 12000,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": -20,
+            "y": -14
+          },
+          {
+            "x": 46,
+            "y": 40
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "medium",
+        "emitting": true,
+        "iffMode": "mil"
+      },
+      "hp": 40
+    },
+    {
+      "id": "c_fiac_1",
+      "name": "Small craft",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "hostile",
+        "type": "FIAC"
+      },
+      "pos": {
+        "x": 23,
+        "y": 7
+      },
+      "course": 250,
+      "speed": 38,
+      "spawnAt": 600,
+      "behavior": {
+        "kind": "attack",
+        "targetId": "c_argo",
+        "weaponRange": 2.5,
+        "firesAt": 1.8
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": false,
+        "iffMode": "none"
+      },
+      "deception": {
+        "profile": "fishing vessel"
+      },
+      "hp": 20
+    }
+  ],
+  "speakers": {
+    "tao": {
+      "name": "LT REYES",
+      "role": "TAO",
+      "portrait": "tao",
+      "color": "amber"
+    },
+    "cic": {
+      "name": "OS2 KOVAC",
+      "role": "CIC WATCH",
+      "portrait": "cic",
+      "color": "green"
+    },
+    "xo": {
+      "name": "CDR ELLIS",
+      "role": "XO",
+      "portrait": "xo",
+      "color": "green"
+    },
+    "esm": {
+      "name": "ET1 BRUNO",
+      "role": "ESM WATCH",
+      "portrait": "esm",
+      "color": "green"
+    },
+    "fleet": {
+      "name": "FIFTH FLEET",
+      "role": "COMMAND",
+      "portrait": "fleet",
+      "color": "amber"
+    },
+    "argo": {
+      "name": "ARGO SPIRIT",
+      "role": "MASTER",
+      "portrait": "external",
+      "color": "green"
+    }
+  },
+  "nodes": [
+    {
+      "id": "n_open",
+      "speaker": "xo",
+      "trigger": {
+        "always": true
+      },
+      "priority": 8,
+      "text": "Station-keeping off our port quarter, Captain. She'll hold twelve knots and she will not turn for anybody. Weapons tight. Traffic in the strait at this hour is almost all civilian.",
+      "focus": [
+        "c_argo"
+      ]
+    },
+    {
+      "id": "n_open_cic",
+      "speaker": "cic",
+      "trigger": {
+        "timeAfter": 14
+      },
+      "text": "Scope is clean apart from the usual. Fishing traffic working the shoals to the north, one friendly on the surveillance track. I'll call anything that behaves."
+    },
+    {
+      "id": "n_orion_check",
+      "speaker": "esm",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_orion"
+        }
+      },
+      "text": "Search radar on the high track, Captain. That emitter is ours \u2014 I have it in the library and it hasn't changed in ten years.",
+      "focus": [
+        "c_orion"
+      ]
+    },
+    {
+      "id": "n_dhow_first",
+      "speaker": "cic",
+      "trigger": {
+        "contactWithin": {
+          "id": "c_dhow_1",
+          "nm": 20
+        }
+      },
+      "text": "Slow surface track crossing right to left ahead of the tanker. Small return. Reads like the fishing traffic we saw on the way in.",
+      "focus": [
+        "c_dhow_1"
+      ]
+    },
+    {
+      "id": "n_dhow_choice",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "contactWithin": {
+              "id": "c_dhow_1",
+              "nm": 15
+            }
+          },
+          {
+            "not": {
+              "flag": "dhow_1_handled",
+              "is": true
+            }
+          }
+        ]
+      },
+      "text": "Crossing traffic ahead of our charge, Captain. How do you want it worked?",
+      "focus": [
+        "c_dhow_1",
+        "c_argo"
+      ],
+      "timeoutSeconds": 20,
+      "defaultOption": "o_dhow_watch",
+      "options": [
+        {
+          "id": "o_dhow_hail",
+          "text": "Hail her. Bridge to bridge.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_dhow_1",
+              "nm": 20
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "dhow_1_handled",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "dhow_1_hailed",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_dhow_silent",
+                "afterSeconds": 18
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_dhow_illuminate",
+          "text": "Paint her. I want her to know we're here.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_dhow_1",
+              "nm": 20
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "dhow_1_handled",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "painted_a_fisherman",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_dhow_scatter",
+                "afterSeconds": 10
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_dhow_watch",
+          "text": "Leave her alone. Keep the track.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "dhow_1_handled",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_dhow_silent",
+      "speaker": "cic",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "Nothing back on any channel, Captain. Half of them don't carry a set and the other half don't answer a warship. Not a reading either way."
+    },
+    {
+      "id": "n_dhow_scatter",
+      "speaker": "xo",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "She's turning north and going flat out, which is what a fisherman does with a fire-control beam on him. We'll be in the tea houses in Bandar Lengeh by Thursday."
+    },
+    {
+      "id": "n_argo_master",
+      "speaker": "argo",
+      "trigger": {
+        "timeAfter": 240
+      },
+      "text": "VALLEY FORGE, ARGO SPIRIT. We are holding course and speed as briefed. Master requests you stay off our starboard side; we have a blind arc there and I'd rather not lose you.",
+      "focus": [
+        "c_argo"
+      ]
+    },
+    {
+      "id": "n_air_detect",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_airbus"
+        }
+      },
+      "text": "New air track out of the north-west, climbing. Big return for a single aircraft.",
+      "focus": [
+        "c_airbus"
+      ]
+    },
+    {
+      "id": "n_air_tao_push",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "contactWithin": {
+              "id": "c_airbus",
+              "nm": 60
+            }
+          },
+          {
+            "not": {
+              "flag": "air_resolved",
+              "is": true
+            }
+          }
+        ]
+      },
+      "priority": 7,
+      "text": "Captain, that track is inside sixty and I do not have a squawk I trust. I want an SM-2 on the rail before it gets any closer.",
+      "focus": [
+        "c_airbus"
+      ]
+    },
+    {
+      "id": "n_air_xo_doubt",
+      "speaker": "xo",
+      "trigger": {
+        "nodeFired": "n_air_tao_push"
+      },
+      "priority": 7,
+      "text": "Before we do that \u2014 there is a published departure out of Bandar Abbas that runs right down this corridor at exactly this hour, Captain. I'd interrogate it before I got excited."
+    },
+    {
+      "id": "n_air_choice",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "contactWithin": {
+              "id": "c_airbus",
+              "nm": 45
+            }
+          },
+          {
+            "not": {
+              "flag": "air_resolved",
+              "is": true
+            }
+          }
+        ]
+      },
+      "priority": 8,
+      "text": "It's closing. Orders, Captain.",
+      "focus": [
+        "c_airbus",
+        "c_argo"
+      ],
+      "timeoutSeconds": 18,
+      "defaultOption": "o_air_track",
+      "options": [
+        {
+          "id": "o_air_track",
+          "text": "Keep tracking. Work the ladder.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "air_resolved",
+                "value": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_air_warn",
+          "text": "Warning call on guard. All frequencies.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_airbus",
+              "nm": 50
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "air_resolved",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "air_warned",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_air_reply",
+                "afterSeconds": 12
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_air_illuminate",
+          "text": "Illuminate. Put a lock on it.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_airbus",
+              "nm": 60
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "air_resolved",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "air_illuminated",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_air_locked",
+                "afterSeconds": 8
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_air_free",
+          "text": "Request weapons release on that track.",
+          "requires": {
+            "contactClassified": {
+              "id": "c_airbus",
+              "min": 75
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "air_resolved",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "requested_release_on_air",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_air_fleet_denies",
+                "afterSeconds": 6
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_air_reply",
+      "speaker": "cic",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "Got a reply on guard, Captain. English, accented, very calm. Reading off a flight number and a routing. Sounds exactly like a man who has done this four hundred times."
+    },
+    {
+      "id": "n_air_locked",
+      "speaker": "esm",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "We're locked on. No reaction from the track at all \u2014 no jink, no jamming, no defensive emission. It just kept climbing on the same heading."
+    },
+    {
+      "id": "n_air_fleet_denies",
+      "speaker": "fleet",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "priority": 9,
+      "text": "VALLEY FORGE, release is denied on that track. Corridor is active. Resolve it with something other than a missile."
+    },
+    {
+      "id": "n_air_past",
+      "speaker": "cic",
+      "trigger": {
+        "all": [
+          {
+            "flag": "air_resolved",
+            "is": true
+          },
+          {
+            "not": {
+              "contactWithin": {
+                "id": "c_airbus",
+                "nm": 45
+              }
+            }
+          }
+        ]
+      },
+      "text": "Air track is through and opening. Still climbing, never deviated. Whatever it is, it was going somewhere and it got there."
+    },
+    {
+      "id": "n_dhow_2_detect",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_dhow_2"
+        }
+      },
+      "text": "Second slow surface track south-east of the lane. Same return as the first one.",
+      "focus": [
+        "c_dhow_2"
+      ]
+    },
+    {
+      "id": "n_fiac_detect",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_fiac_1"
+        }
+      },
+      "priority": 7,
+      "text": "New surface track to the east. Small return \u2014 the profile library calls it a fishing vessel. Captain, it is not moving like one.",
+      "focus": [
+        "c_fiac_1"
+      ]
+    },
+    {
+      "id": "n_fiac_xo",
+      "speaker": "xo",
+      "trigger": {
+        "nodeFired": "n_fiac_detect"
+      },
+      "text": "Nothing out here does that speed for a living. Either a smuggler is having a bad night or somebody wants to see how close they can get."
+    },
+    {
+      "id": "n_fiac_choice",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "contactWithin": {
+              "id": "c_fiac_1",
+              "nm": 20
+            }
+          },
+          {
+            "not": {
+              "flag": "fiac_resolved",
+              "is": true
+            }
+          }
+        ]
+      },
+      "priority": 8,
+      "text": "Captain, I have a contact closing the tanker. Your call.",
+      "focus": [
+        "c_fiac_1",
+        "c_argo"
+      ],
+      "timeoutSeconds": 15,
+      "defaultOption": "o_fiac_wait",
+      "options": [
+        {
+          "id": "o_fiac_illuminate",
+          "text": "Illuminate. Let him know we see him.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_fiac_1",
+              "nm": 25
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "fiac_resolved",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "fiac_illuminated",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_fiac_no_flinch",
+                "afterSeconds": 9
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_fiac_hail",
+          "text": "Hail him first. Bridge to bridge, all channels.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_fiac_1",
+              "nm": 25
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "fiac_resolved",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "fiac_hailed",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_fiac_silent",
+                "afterSeconds": 16
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_fiac_free",
+          "text": "Weapons free on that contact.",
+          "requires": {
+            "contactClassified": {
+              "id": "c_fiac_1",
+              "min": 75
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "fiac_resolved",
+                "value": true
+              }
+            },
+            {
+              "setRoe": {
+                "level": "free"
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n_roe_free",
+                "afterSeconds": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_fiac_wait",
+          "text": "Hold. Keep tracking.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "fiac_resolved",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_fiac_no_flinch",
+      "speaker": "esm",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "He took the beam and did not flinch, Captain. No turn, no slow-down. A fisherman lit up by a cruiser changes course. This one didn't."
+    },
+    {
+      "id": "n_fiac_silent",
+      "speaker": "cic",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "Three calls, three channels, nothing back. Still closing, still on the same bearing to the tanker."
+    },
+    {
+      "id": "n_roe_free",
+      "speaker": "xo",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "priority": 9,
+      "text": "Weapons free, aye. For the log, Captain: that authority is yours and the board will read it back to you either way."
+    },
+    {
+      "id": "n_fiac_reveal",
+      "speaker": "cic",
+      "trigger": {
+        "contactWithin": {
+          "id": "c_fiac_1",
+          "nm": 6
+        }
+      },
+      "priority": 9,
+      "text": "Visual from the bridge wing \u2014 she's carrying racks on the foredeck and there are men on them. That is not a fishing boat.",
+      "focus": [
+        "c_fiac_1"
+      ],
+      "effects": [
+        {
+          "revealTruth": {
+            "id": "c_fiac_1"
+          }
+        },
+        {
+          "setFlag": {
+            "key": "fiac_unmasked",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n_fiac_release",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "flag": "fiac_unmasked",
+            "is": true
+          },
+          {
+            "contactWithin": {
+              "id": "c_fiac_1",
+              "nm": 6
+            }
+          },
+          {
+            "not": {
+              "contactDestroyed": {
+                "id": "c_fiac_1"
+              }
+            }
+          }
+        ]
+      },
+      "priority": 10,
+      "text": "Captain. He is inside gun range of our charge.",
+      "focus": [
+        "c_fiac_1",
+        "c_argo"
+      ],
+      "timeoutSeconds": 12,
+      "defaultOption": "o_rel_hold",
+      "options": [
+        {
+          "id": "o_rel_free",
+          "text": "Batteries release. Take him.",
+          "requires": {
+            "contactClassified": {
+              "id": "c_fiac_1",
+              "min": 75
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "auth.release.c_fiac_1",
+                "value": true
+              }
+            },
+            {
+              "setRoe": {
+                "level": "free"
+              }
+            },
+            {
+              "setFlag": {
+                "key": "released_on_fiac",
+                "value": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_rel_interpose",
+          "text": "Put us between him and the tanker.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "interposed",
+                "value": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "o_rel_hold",
+          "text": "Hold. He has not done anything yet.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "held_at_reveal",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_second_wave",
+      "speaker": "cic",
+      "trigger": {
+        "all": [
+          {
+            "timeAfter": 2200
+          },
+          {
+            "contactDestroyed": {
+              "id": "c_fiac_1"
+            }
+          }
+        ]
+      },
+      "priority": 8,
+      "text": "Captain \u2014 second small track came out of the shadow of the coast behind the first one. Same profile, same speed, same bearing to the tanker.",
+      "focus": [
+        "c_argo"
+      ],
+      "effects": [
+        {
+          "spawnContact": {
+            "id": "c_fiac_2",
+            "name": "Small craft",
+            "domain": "surface",
+            "truth": {
+              "allegiance": "hostile",
+              "type": "FIAC"
+            },
+            "pos": {
+              "x": 21,
+              "y": 4
+            },
+            "course": 250,
+            "speed": 40,
+            "behavior": {
+              "kind": "attack",
+              "targetId": "c_argo",
+              "weaponRange": 2.5,
+              "firesAt": 1.8
+            },
+            "sensor": {
+              "rcs": "small",
+              "emitting": false,
+              "iffMode": "none"
+            },
+            "hp": 20
+          }
+        },
+        {
+          "setFlag": {
+            "key": "second_wave",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n_second_wave_roe",
+      "speaker": "fleet",
+      "trigger": {
+        "flag": "second_wave",
+        "is": true
+      },
+      "priority": 9,
+      "text": "VALLEY FORGE, FIFTH FLEET. We have your report. Craft of that description operating in that lane are declared an enemy force as of this transmission. You are weapons free on the second track.",
+      "effects": [
+        {
+          "setRoe": {
+            "level": "free"
+          }
+        },
+        {
+          "setFlag": {
+            "key": "auth.release.c_fiac_2",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n_neutral_killed",
+      "speaker": "xo",
+      "trigger": {
+        "flag": "sys.neutralKilled",
+        "is": true
+      },
+      "priority": 10,
+      "text": "Captain... that track is gone off the scope and there is nothing in the water where it was but debris. I'm logging the time."
+    },
+    {
+      "id": "n_argo_lost",
+      "speaker": "cic",
+      "trigger": {
+        "contactDestroyed": {
+          "id": "c_argo"
+        }
+      },
+      "priority": 10,
+      "text": "ARGO SPIRIT is hit. She's burning amidships and losing way. Master is off the air.",
+      "focus": [
+        "c_argo"
+      ]
+    },
+    {
+      "id": "n_gate",
+      "speaker": "xo",
+      "trigger": {
+        "all": [
+          {
+            "ownshipWithin": {
+              "pos": {
+                "x": 10,
+                "y": -3.5
+              },
+              "nm": 4
+            }
+          },
+          {
+            "not": {
+              "contactDestroyed": {
+                "id": "c_argo"
+              }
+            }
+          }
+        ]
+      },
+      "priority": 8,
+      "text": "That's the gate, Captain. ARGO SPIRIT is into open water and the strait is behind us. Whatever we did back there, we did it."
+    }
+  ],
+  "objectives": [
+    {
+      "id": "ob_escort",
+      "type": "protect",
+      "text": "MV ARGO SPIRIT survives the transit",
+      "params": {
+        "contactId": "c_argo"
+      }
+    },
+    {
+      "id": "ob_station",
+      "type": "hold",
+      "text": "Hold escort station within 5 nm of ARGO SPIRIT",
+      "params": {
+        "contactId": "c_argo",
+        "nm": 5,
+        "seconds": 1200
+      }
+    },
+    {
+      "id": "ob_gate",
+      "type": "reach",
+      "text": "Reach the open-water gate at the east end of the lane",
+      "params": {
+        "pos": {
+          "x": 10,
+          "y": -3.5
+        },
+        "nm": 4
+      }
+    },
+    {
+      "id": "ob_clean",
+      "type": "flag",
+      "optional": true,
+      "text": "No civilian casualties",
+      "params": {
+        "key": "sys.neutralKilled",
+        "value": false
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "inquiry_friendly",
+      "rating": "INQUIRY",
+      "condition": {
+        "flag": "sys.friendlyKilled",
+        "is": true
+      },
+      "title": "Blue on Blue",
+      "debrief": "The track you engaged was one of ours.\n\nThere is no version of this debrief that is about the strait, or the tanker, or the two small craft that came out of the dark to find her. There is only the track, and the seventeen seconds in which the decision was made, and the recorder that kept all of it.\n\nThe ship will be relieved on station within the week. You will not be aboard for it."
+    },
+    {
+      "id": "inquiry_neutral",
+      "rating": "INQUIRY",
+      "condition": {
+        "flag": "sys.neutralKilled",
+        "is": true
+      },
+      "title": "Board of Inquiry Convened",
+      "debrief": "The contact you destroyed was exactly what it appeared to be for most of the night: a boat with people on it, going somewhere ordinary.\n\nThe data was complete. The recorder has the whole ladder \u2014 every rung you climbed and every one you skipped. It will show that the information required to identify that contact was available to this ship, and that the decision was made before it was used.\n\nThe convoy's disposition, the state of the tanker, the two craft that may or may not have been closing her \u2014 none of that is what the board will ask about.\n\nAegis worked. That is always the finding."
+    },
+    {
+      "id": "clean",
+      "rating": "S",
+      "condition": {
+        "all": [
+          {
+            "flag": "ob_escort",
+            "is": "complete"
+          },
+          {
+            "flag": "ob_station",
+            "is": "complete"
+          },
+          {
+            "flag": "ob_gate",
+            "is": "complete"
+          },
+          {
+            "not": {
+              "flag": "sys.neutralKilled",
+              "is": true
+            }
+          },
+          {
+            "flag": "sys.lowConfidenceEngagement",
+            "is": false
+          }
+        ]
+      },
+      "title": "Textbook Escort",
+      "debrief": "ARGO SPIRIT made open water on schedule and nobody who did not earn it went into the sea.\n\nWhat the recorder shows is a ship that used its ladder: interrogated before it illuminated, illuminated before it released, and released only against contacts it had actually identified. That is the whole of the tactic and it is harder than it sounds at four in the morning with a TAO asking for the rail.\n\nThe small craft were what they were. You found that out before you shot, which is the only part of this that was ever in your control."
+    },
+    {
+      "id": "held_station",
+      "rating": "A",
+      "condition": {
+        "all": [
+          {
+            "flag": "ob_escort",
+            "is": "complete"
+          },
+          {
+            "flag": "ob_gate",
+            "is": "complete"
+          },
+          {
+            "not": {
+              "flag": "sys.neutralKilled",
+              "is": true
+            }
+          }
+        ]
+      },
+      "title": "Charge Delivered",
+      "debrief": "The tanker is through and the strait is behind her.\n\nThe escort was looser than it should have been \u2014 there are stretches on the recorder where VALLEY FORGE is well outside the station she was ordered to hold, and a small craft making thirty-eight knots covers that gap faster than a cruiser can close it back.\n\nIt worked. Next time it may not, and the difference will not be anything you did differently."
+    },
+    {
+      "id": "tanker_lost",
+      "rating": "F",
+      "condition": {
+        "contactDestroyed": {
+          "id": "c_argo"
+        }
+      },
+      "title": "Escort Failed",
+      "debrief": "ARGO SPIRIT is burning in the strait with her crew in the water.\n\nThe craft that did it was on the scope for a long time before it mattered. It was small, it was slow to classify, and it did not look like anything until it was close enough that looking no longer helped.\n\nThe ladder exists for exactly this contact. Every rung on it costs time, and the only time available was spent somewhere else."
+    },
+    {
+      "id": "fallback",
+      "rating": "C",
+      "condition": {
+        "always": true
+      },
+      "title": "Transit Complete",
+      "debrief": "The tanker made open water. It was closer than it needed to be.\n\nNothing in the log is a violation and nothing in it is good work either. The contacts that mattered were resolved late or not at all, and the ones that did not matter absorbed attention that was needed elsewhere.\n\nThe strait does this. It is mostly boredom, and the part that is not boredom arrives all at once and does not wait."
+    }
+  ]
+}

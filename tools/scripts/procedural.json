@@ -1,0 +1,257 @@
+[
+  {
+    "at": 5,
+    "intent": "order:setSpeed",
+    "payload": {
+      "speed": 15
+    }
+  },
+  {
+    "at": 30,
+    "intent": "order:select",
+    "payload": {
+      "id": "c_dhow_1"
+    }
+  },
+  {
+    "at": 35,
+    "intent": "order:iff",
+    "payload": {
+      "id": "c_dhow_1"
+    }
+  },
+  {
+    "at": 60,
+    "intent": "order:esm",
+    "payload": {
+      "id": "c_dhow_1"
+    }
+  },
+  {
+    "whenNodeActive": "n_dhow_choice",
+    "intent": "dialogue:choose",
+    "payload": {
+      "optionId": "o_dhow_hail"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_orion"
+      }
+    },
+    "intent": "order:select",
+    "payload": {
+      "id": "c_orion"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_orion"
+      }
+    },
+    "intent": "order:iff",
+    "payload": {
+      "id": "c_orion"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_airbus"
+      }
+    },
+    "intent": "order:select",
+    "payload": {
+      "id": "c_airbus"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_airbus"
+      }
+    },
+    "intent": "order:iff",
+    "payload": {
+      "id": "c_airbus"
+    }
+  },
+  {
+    "when": {
+      "contactWithin": {
+        "id": "c_airbus",
+        "nm": 100
+      }
+    },
+    "intent": "order:esm",
+    "payload": {
+      "id": "c_airbus"
+    }
+  },
+  {
+    "whenNodeActive": "n_air_choice",
+    "intent": "dialogue:choose",
+    "payload": {
+      "optionId": "o_air_warn"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_fiac_1"
+      }
+    },
+    "intent": "order:select",
+    "payload": {
+      "id": "c_fiac_1"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_fiac_1"
+      }
+    },
+    "intent": "order:iff",
+    "payload": {
+      "id": "c_fiac_1"
+    }
+  },
+  {
+    "when": {
+      "contactWithin": {
+        "id": "c_fiac_1",
+        "nm": 24
+      }
+    },
+    "intent": "order:hail",
+    "payload": {
+      "id": "c_fiac_1"
+    }
+  },
+  {
+    "whenNodeActive": "n_fiac_choice",
+    "intent": "dialogue:choose",
+    "payload": {
+      "optionId": "o_fiac_illuminate"
+    }
+  },
+  {
+    "whenNodeActive": "n_fiac_release",
+    "intent": "dialogue:choose",
+    "payload": {
+      "optionId": "o_rel_free"
+    }
+  },
+  {
+    "when": {
+      "all": [
+        {
+          "flag": "released_on_fiac",
+          "is": true
+        },
+        {
+          "contactWithin": {
+            "id": "c_fiac_1",
+            "nm": 11
+          }
+        }
+      ]
+    },
+    "intent": "order:engage",
+    "payload": {
+      "id": "c_fiac_1",
+      "weapon": "gun"
+    },
+    "repeat": true
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_fiac_2"
+      }
+    },
+    "intent": "order:select",
+    "payload": {
+      "id": "c_fiac_2"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_fiac_2"
+      }
+    },
+    "intent": "order:iff",
+    "payload": {
+      "id": "c_fiac_2"
+    }
+  },
+  {
+    "when": {
+      "contactDetected": {
+        "id": "c_fiac_2"
+      }
+    },
+    "intent": "order:hail",
+    "payload": {
+      "id": "c_fiac_2"
+    }
+  },
+  {
+    "when": {
+      "all": [
+        {
+          "contactDetected": {
+            "id": "c_fiac_2"
+          }
+        },
+        {
+          "contactWithin": {
+            "id": "c_fiac_2",
+            "nm": 20
+          }
+        }
+      ]
+    },
+    "intent": "order:illuminate",
+    "payload": {
+      "id": "c_fiac_2"
+    }
+  },
+  {
+    "when": {
+      "contactWithin": {
+        "id": "c_fiac_2",
+        "nm": 12
+      }
+    },
+    "intent": "order:declare",
+    "payload": {
+      "id": "c_fiac_2"
+    }
+  },
+  {
+    "when": {
+      "all": [
+        {
+          "contactWithin": {
+            "id": "c_fiac_2",
+            "nm": 11
+          }
+        },
+        {
+          "roeIs": "free"
+        }
+      ]
+    },
+    "intent": "order:engage",
+    "payload": {
+      "id": "c_fiac_2",
+      "weapon": "gun"
+    },
+    "repeat": true
+  }
+]
