@@ -32,7 +32,26 @@ npm test            # 70 unit tests: sim, narrative, validator
 npm run validate    # validate every mission against the schema
 npm run missions    # regenerate missions/manifest.json after adding a file
 npm run ci          # validate + test + outcome regression
-node tools/smoke.js # drive the real game in Chromium, 31 checks
+node tools/smoke.js   # drive the real game in Chromium, 31 checks
+npm run deploy:check  # stage what the host will serve, then play it
+```
+
+## Deploying
+
+It is a static site with no build step, so any static host works. `vercel.json`
+configures Vercel for zero build, serving the repo root, with
+`Cache-Control: max-age=0, must-revalidate` on everything — there is no
+bundler, so no filename is content-hashed, and any longer cache would serve a
+stale `src/*.js` against a fresh `index.html` after a redeploy.
+
+`.vercelignore` keeps `tools/`, `tests/` and `CLAUDE.md` out of the
+deployment; nothing at runtime references them.
+
+```sh
+npm run deploy:check   # stage per .vercelignore, then boot all four missions
+                       # on the production code path (non-localhost hostname,
+                       # so main.js's DEV flag is false and no debug handle
+                       # is exposed)
 ```
 
 ## How it plays

@@ -1,0 +1,7 @@
+# Everything the game does not need at runtime. The deployment is the four
+# zones and the missions; the harness stays in the repo.
+tools/
+tests/
+.aegis-out/
+node_modules/
+CLAUDE.md

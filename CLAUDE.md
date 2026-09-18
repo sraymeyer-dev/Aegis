@@ -12,6 +12,15 @@ node tools/smoke.js # 31 checks against the real game in Chromium
 
 Both must pass. `npm run ci` is fast; the smoke test takes about a minute.
 
+Before a deploy, also run `npm run deploy:check`. It stages exactly what
+`.vercelignore` leaves behind and boots all four missions on the **production**
+code path — a non-localhost hostname, so `main.js`'s `DEV` flag is false,
+`window.__aegis` is not exposed and mission loading logs-and-skips rather than
+throwing. Nothing else in the suite exercises that branch.
+
+Both browser checks need `npm install playwright` first; it is the only thing
+in the repo with a dependency.
+
 ## The rules that are easy to break in the middle of a long edit
 
 1. **`truth` never reaches the renderer.** `contact.truth` is readable in
