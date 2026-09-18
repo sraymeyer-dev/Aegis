@@ -503,6 +503,7 @@ export function createScope(canvas, state, bus) {
       const world = screenToWorld(p.x, p.y);
       bus.intent('order:setCourse', { waypoint: world, append: ev.shiftKey });
       if (!ev.shiftKey) plotting = false;
+      state.ui.plotting = plotting;
       canvas.classList.toggle('is-plotting', plotting);
       return;
     }
@@ -527,7 +528,11 @@ export function createScope(canvas, state, bus) {
       if (!c) return null;
       return { contact: c, screen: hoverPos };
     },
-    setPlotting(on) { plotting = on; canvas.classList.toggle('is-plotting', on); },
+    setPlotting(on) {
+      plotting = on;
+      state.ui.plotting = on;              // view state; the order rail reads it
+      canvas.classList.toggle('is-plotting', on);
+    },
     get plotting() { return plotting; },
     setZoom(nm) { if (RANGE_RINGS.includes(nm)) state.ui.zoom = nm; },
     toggleOrientation() {

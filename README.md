@@ -122,6 +122,13 @@ course (shift-click appends).
 | `Space` | pause — which does **not** block orders |
 | `Tab` / `Esc` | cycle contacts / deselect |
 
+Every control explains itself on hover: what it does, what it costs in time,
+what it risks, and — when it is unavailable — exactly why, with the live
+numbers. **TIPS** in the scope controls turns those panels off; the setting
+persists. The refusal reason survives with them off, as a native tooltip and
+on the control's accessible name, because that part is information rather than
+decoration.
+
 ## Writing a mission
 
 A mission is one JSON file. Drop it in `/missions/`, run `npm run missions`,

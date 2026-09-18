@@ -11,6 +11,7 @@
 
 import { DAMAGE_ZONES, ZONE_ORDER, WEAPONS } from '../data/constants.js';
 import { totalIntegrity } from '../core/state.js';
+import { PROFILE_HELP, ZONE_CONSEQUENCE } from './help-text.js';
 
 /** Zone rectangles over a side elevation, in the SVG's 200x46 viewBox. */
 const ZONE_GEOMETRY = {
@@ -27,7 +28,7 @@ const SYSTEM_LABELS = {
   radar: 'SPY-1', propulsion: 'PROP', buoyancy: 'HULL',
 };
 
-export function createProfile(root, state, bus) {
+export function createProfile(root, state, bus, { tips } = {}) {
   root.innerHTML = `
     <div class="u-label">SHIP</div>
     <div id="ship-svg-wrap">
@@ -59,10 +60,21 @@ export function createProfile(root, state, bus) {
     rect.setAttribute('class', 'zone-shape');
     rect.dataset.zone = zone;
     rect.addEventListener('click', () => bus.intent('order:damageControl', { zone }));
-    const title = document.createElementNS(NS, 'title');
-    title.textContent = `${DAMAGE_ZONES[zone].label} — click to assign damage control`;
-    rect.appendChild(title);
     svg.appendChild(rect);
+    if (tips) tips.bind(rect, () => {
+      const o = state.ownship;
+      const hp = Math.max(0, Math.round(o.integrity[zone]));
+      const max = o.maxIntegrity[zone];
+      const spec = {
+        title: DAMAGE_ZONES[zone].label,
+        body: `${PROFILE_HELP.zone.body}\n\n${ZONE_CONSEQUENCE[zone]}`,
+        cost: `${hp} of ${max} HP \u00b7 repairs at 2 HP per second`,
+      };
+      if (hp <= 0) spec.reason = PROFILE_HELP.zone.reasonDestroyed;
+      else if (hp >= max) spec.reason = PROFILE_HELP.zone.reasonFull;
+      else if (o.damageControlZone === zone) spec.risk = 'Damage control is working this zone now.';
+      return spec;
+    });
 
     const text = document.createElementNS(NS, 'text');
     text.setAttribute('x', g.x + 2);

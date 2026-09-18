@@ -20,6 +20,8 @@ import { createHud } from './ui/hud.js';
 import { renderDebrief } from './ui/debrief.js';
 import { renderSelect, renderBriefing } from './ui/select.js';
 import { createSound } from './ui/sound.js';
+import { createTooltips } from './ui/tooltip.js';
+import { SCOPE_HELP } from './ui/help-text.js';
 import { displayedLabel, displayedName } from './sim/sensors.js';
 import { range, bearing, closureRate } from './core/geometry.js';
 import { isRungDone } from './ui/orders.js';
@@ -35,6 +37,7 @@ const screens = {
 };
 
 const sound = createSound();
+const tips = createTooltips();
 let manifest = [];
 let currentMission = null;
 let currentFile = null;
@@ -103,12 +106,13 @@ function beginMission() {
 
   ui = {
     scope,
-    profile: createProfile(document.getElementById('zone-profile'), state, bus),
+    profile: createProfile(document.getElementById('zone-profile'), state, bus, { tips }),
     orders: createOrders(document.getElementById('zone-orders'), state, bus, {
       onPlotToggle: () => scope.setPlotting(!scope.plotting),
+      tips,
     }),
     dialogue: createDialogueUI(document.getElementById('dialogue-host'), state, bus),
-    hud: createHud(document.getElementById('zone-status'), document.getElementById('objective-tray'), state, bus),
+    hud: createHud(document.getElementById('zone-status'), document.getElementById('objective-tray'), state, bus, { tips }),
     hover: document.getElementById('hover-readout'),
     trackData: document.getElementById('track-data'),
   };
@@ -116,6 +120,7 @@ function beginMission() {
   wireScopeControls(scope);
   wireSound(bus);
 
+  tips.hide();
   loop = createLoop(state, bus, render);
   loop.start();
   show('playing');
@@ -237,9 +242,15 @@ function wireScopeControls(scope) {
   controls.replaceChildren(...RANGE_RINGS.map((nm) => {
     const b = document.createElement('button');
     b.textContent = `${nm}`;
-    b.title = `${nm} nm range scale`;
     b.addEventListener('click', () => scope.setZoom(nm));
     b.dataset.zoom = nm;
+    tips.bind(b, () => ({
+      ...SCOPE_HELP.zoom,
+      title: `RANGE SCALE \u2014 ${nm} NM`,
+      risk: nm < 40 && anyContactBeyond(nm)
+        ? `Contacts are being tracked beyond ${nm} nm and are off the edge of this scale.`
+        : null,
+    }));
     return b;
   }));
   const orient = document.createElement('button');
@@ -249,6 +260,10 @@ function wireScopeControls(scope) {
   orient.addEventListener('click', () => {
     orient.textContent = scope.toggleOrientation() === 'north-up' ? 'N-UP' : 'H-UP';
   });
+  tips.bind(orient, () => ({
+    ...SCOPE_HELP.orientation,
+    cost: `Currently ${state?.ui.orientation ?? 'north-up'}.`,
+  }));
   controls.appendChild(orient);
 
   const motion = document.createElement('button');
@@ -261,6 +276,10 @@ function wireScopeControls(scope) {
     scope.setReducedMotion(reducedMotion);
     motion.textContent = reducedMotion ? 'MOTION OFF' : 'MOTION ON';
   });
+  tips.bind(motion, () => ({
+    ...SCOPE_HELP.motion,
+    cost: reducedMotion ? 'Currently OFF.' : 'Currently ON.',
+  }));
   controls.appendChild(motion);
 
   const audio = document.createElement('button');
@@ -270,7 +289,36 @@ function wireScopeControls(scope) {
     audio.textContent = sound.enabled ? 'SOUND ON' : 'SOUND OFF';
     if (sound.enabled) sound.startHum();
   });
+  tips.bind(audio, () => ({
+    ...SCOPE_HELP.sound,
+    cost: sound.enabled ? 'Currently ON.' : 'Currently OFF.',
+  }));
   controls.appendChild(audio);
+
+  // The tooltip toggle. Bound to the tooltip service like any other control,
+  // so it explains itself right up until the moment you switch it off.
+  const tipBtn = document.createElement('button');
+  const tipLabel = () => (tips.enabled ? 'TIPS ON' : 'TIPS OFF');
+  tipBtn.textContent = tipLabel();
+  tipBtn.classList.toggle('is-on', tips.enabled);
+  tipBtn.addEventListener('click', () => {
+    const on = tips.toggle();
+    tipBtn.textContent = tipLabel();
+    tipBtn.classList.toggle('is-on', on);
+  });
+  tips.bind(tipBtn, () => ({
+    ...SCOPE_HELP.tips,
+    cost: tips.enabled ? 'Currently ON.' : 'Currently OFF.',
+  }));
+  controls.appendChild(tipBtn);
+
+  function anyContactBeyond(nm) {
+    if (!state) return false;
+    for (const c of state.contacts.values()) {
+      if (c.detected && c.alive && c.active && range(state.ownship.pos, c.pos) > nm) return true;
+    }
+    return false;
+  }
 
   // Keep the zoom buttons showing the live scale.
   setInterval(() => {

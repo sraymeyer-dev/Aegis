@@ -37,7 +37,18 @@ in the repo with a dependency.
    the top of the next tick, which is why a click while paused behaves
    identically to a click at 8× compression.
 5. **No content in `/src/`.** No contact names, no dialogue, no mission logic.
-   If it would differ between missions, it belongs in JSON.
+   If it would differ between missions, it belongs in JSON. (`ui/help-text.js`
+   is not an exception: it describes the engine's own verbs and is identical in
+   every mission.)
+6. **Build DOM once; update it in place.** The render loop runs every
+   animation frame. A zone that calls `replaceChildren()` or sets `innerHTML`
+   from `render()` destroys its own controls ~60 times a second, and a human
+   click is lost between mousedown and mouseup because the element it pressed
+   no longer exists. This shipped in the order rail and made every sensor, nav
+   and weapon button unclickable. `tools/smoke.js` now asserts element
+   identity is stable across 30 frames and that a 90 ms mouse press lands.
+   Reserve `innerHTML` in `render()` for text-only nodes with no controls in
+   them.
 
 ## Adding a mission
 

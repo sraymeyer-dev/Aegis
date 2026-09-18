@@ -133,11 +133,75 @@ const run = async () => {
   /* --- ROE gate is visible and refuses ----------------------------- */
   const engageDisabled = await page.evaluate(() => {
     const b = [...document.querySelectorAll('#rail-weapons .order-btn')].find((x) => x.textContent.startsWith('Engage'));
-    return { disabled: b?.disabled, title: b?.title ?? '' };
+    return { disabled: b?.disabled, aria: b?.getAttribute('aria-label') ?? '' };
   });
-  check('engage is gated by ROE with a stated reason',
-    engageDisabled.disabled === true && /TIGHT|classified|magazine|Select/.test(engageDisabled.title),
-    engageDisabled.title);
+  check('engage is gated by ROE, and a screen reader is told why',
+    engageDisabled.disabled === true && /TIGHT|classified|magazine|selected/i.test(engageDisabled.aria),
+    engageDisabled.aria.slice(0, 80));
+
+  /* --- clickability: controls must survive the render loop ---------
+   * The order rail used to call replaceChildren() every animation frame, so a
+   * human click was lost between mousedown and mouseup. Assert that every
+   * control keeps its element identity across frames, and that a real
+   * human-speed press actually lands. */
+  const stability = await page.evaluate(async () => {
+    const sels = ['#rail-sensors button', '#rail-weapons button', '#rail-nav button',
+      '#compression-controls button', '#scope-controls button', '.zone-shape'];
+    const before = sels.map((s2) => document.querySelector(s2));
+    await new Promise((r) => { let n = 0; const f = () => (++n < 30 ? requestAnimationFrame(f) : r()); requestAnimationFrame(f); });
+    return sels.filter((s2, i) => before[i] && document.querySelector(s2) !== before[i]);
+  });
+  check('controls are not rebuilt by the render loop', stability.length === 0,
+    stability.length ? `rebuilt every frame: ${stability.join(', ')}` : 'stable across 30 frames');
+
+  {
+    const btn = page.locator('#rail-nav button').filter({ hasText: /^24$/ }).first();
+    const box = await btn.boundingBox();
+    const before = await page.evaluate(() => window.__aegis.state.ownship.orderedSpeed);
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.mouse.down();
+    await page.waitForTimeout(90);        // a human press lasts ~50-150ms
+    await page.mouse.up();
+    await page.waitForTimeout(350);
+    const after = await page.evaluate(() => window.__aegis.state.ownship.orderedSpeed);
+    check('a human-speed click on a nav button lands', after === 24 && before !== after,
+      `orderedSpeed ${before} -> ${after}`);
+  }
+
+  /* --- tooltips ----------------------------------------------------- */
+  {
+    const engage = page.locator('#rail-weapons button').filter({ hasText: /Engage/ }).first();
+    await engage.hover();
+    await page.waitForTimeout(450);
+    const tip = await page.evaluate(() => {
+      const t = document.getElementById('tooltip');
+      return { shown: t && !t.classList.contains('u-hide'), text: t?.innerText ?? '' };
+    });
+    check('hovering a control shows a rich tooltip', tip.shown);
+    check('the tooltip explains what the control does', tip.text.length > 120, `${tip.text.length} chars`);
+    check('a disabled control states why', /UNAVAILABLE/.test(tip.text),
+      tip.text.split('\n').pop().slice(0, 70));
+
+    // Turning tooltips off must keep the refusal reason reachable: it is
+    // functional information, not decoration.
+    await page.locator('#scope-controls button').filter({ hasText: /TIPS/ }).first().click();
+    await page.waitForTimeout(200);
+    await engage.hover();
+    await page.waitForTimeout(450);
+    const off = await page.evaluate(() => {
+      const t = document.getElementById('tooltip');
+      const b = [...document.querySelectorAll('#rail-weapons button')].find((x) => /Engage/.test(x.textContent));
+      return { hidden: !t || t.classList.contains('u-hide'), title: b?.getAttribute('title') ?? '' };
+    });
+    check('TIPS OFF hides the tooltip panel', off.hidden);
+    check('TIPS OFF still surfaces the refusal reason', off.title.length > 8, off.title.slice(0, 60));
+
+    await page.locator('#scope-controls button').filter({ hasText: /TIPS/ }).first().click();
+    await page.waitForTimeout(200);
+    const backOn = await page.evaluate(() =>
+      [...document.querySelectorAll('#scope-controls button')].some((b) => b.textContent === 'TIPS ON'));
+    check('the tooltip toggle restores', backOn);
+  }
 
   /* --- THE RULE: the render loop must never mutate state ----------- */
   const mutation = await page.evaluate(async () => {

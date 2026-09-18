@@ -5,6 +5,7 @@
 import { COMPRESSION_STEPS, ROE_LABEL, CRIPPLED_THRESHOLD } from '../data/constants.js';
 import { totalIntegrity } from '../core/state.js';
 import { range } from '../core/geometry.js';
+import { CLOCK_HELP } from './help-text.js';
 
 const AUTODROP_TEXT = {
   'choice-node': 'held at 1× — decision pending',
@@ -13,7 +14,7 @@ const AUTODROP_TEXT = {
   'damage-event': 'held at 1× — damage',
 };
 
-export function createHud(statusRoot, trayRoot, state, bus) {
+export function createHud(statusRoot, trayRoot, state, bus, { tips } = {}) {
   statusRoot.innerHTML = `
     <div class="status-cell"><span class="u-label">Mission time</span>
       <span class="status-value" id="clock-value">00:00</span></div>
@@ -43,6 +44,14 @@ export function createHud(statusRoot, trayRoot, state, bus) {
     b.title = `Time compression ${step}× (key ${COMPRESSION_STEPS.indexOf(step) + 1})`;
     b.addEventListener('click', () => bus.intent('clock:setCompression', { compression: step }));
     elComp.appendChild(b);
+    if (tips) tips.bind(b, () => ({
+      ...CLOCK_HELP.compression,
+      title: `TIME COMPRESSION ${step}\u00d7`,
+      cost: step === 1
+        ? 'Real time. One second of your life is one second of the watch.'
+        : `${step} seconds of the watch per second of yours.`,
+      reason: state.clock.paused ? 'The clock is paused. Resume before changing compression.' : null,
+    }));
     buttons.set(step, b);
   }
   const pauseBtn = document.createElement('button');
@@ -51,6 +60,10 @@ export function createHud(statusRoot, trayRoot, state, bus) {
   pauseBtn.addEventListener('click', () =>
     bus.intent(state.clock.paused ? 'clock:resume' : 'clock:pause', {}));
   elComp.appendChild(pauseBtn);
+  if (tips) tips.bind(pauseBtn, () => ({
+    ...CLOCK_HELP.pause,
+    title: state.clock.paused ? 'RESUME' : 'PAUSE',
+  }));
 
   const note = document.createElement('span');
   note.id = 'autodrop-note';

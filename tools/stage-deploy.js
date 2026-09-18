@@ -18,6 +18,18 @@ const ignores = readFileSync('.vercelignore', 'utf8')
 const ignored = (file) => ignores.some((pattern) =>
   pattern.endsWith('/') ? file.startsWith(pattern) : file === pattern);
 
+// Staging from `git ls-files` means staging what would actually deploy. That
+// is the point -- but an untracked file the game imports would be missing here
+// and present in your working tree, which looks like a bug in the game rather
+// than an uncommitted file. Say so loudly instead.
+const untracked = execSync('git ls-files --others --exclude-standard', { encoding: 'utf8' })
+  .split('\n').filter(Boolean).filter((f) => !ignored(f));
+if (untracked.length) {
+  console.warn(`\nWARNING: ${untracked.length} untracked file(s) will NOT be staged:`);
+  for (const f of untracked) console.warn(`  ${f}`);
+  console.warn('Commit or stage them first, or the staged tree is not what you are testing.\n');
+}
+
 rmSync(OUT, { recursive: true, force: true });
 const files = execSync('git ls-files', { encoding: 'utf8' })
   .split('\n').filter(Boolean).filter((f) => !ignored(f));

@@ -318,3 +318,69 @@ table.tracklog tr.is-decision td { color: var(--phos-hot); }
 @media (max-width: 1100px) {
   :root { --dialogue-width: 280px; --bottom-height: 160px; }
 }
+
+/* ------------------------------------------------------------------ *
+ * Tooltips
+ *
+ * One shared panel. It explains what a control does, what it costs, what it
+ * risks, and why it is unavailable. The reason line is amber because it is
+ * the only part of a tooltip that is ever load-bearing.
+ * ------------------------------------------------------------------ */
+
+#tooltip {
+  position: fixed;
+  z-index: 950;
+  max-width: 330px;
+  padding: 9px 11px;
+  border: 1px solid var(--phos-mid);
+  background: rgba(3, 8, 4, 0.97);
+  pointer-events: none;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+#tooltip.u-hide { display: none; }
+
+.tip-title {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--track);
+  color: var(--phos-hot);
+  margin-bottom: 5px;
+}
+.tip-key {
+  float: right;
+  font-size: var(--fs-xs);
+  color: var(--phos-mid);
+  letter-spacing: var(--track);
+  margin: -1px 0 0 10px;
+}
+.tip-key b { color: var(--phos-bright); font-weight: normal; }
+
+.tip-body {
+  font-family: var(--font-voice);
+  color: var(--phos-bright);
+  font-size: var(--fs-sm);
+}
+.tip-line {
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px solid var(--phos-dim);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.02em;
+}
+.tip-cost   { color: var(--phos-mid); }
+.tip-risk   { color: var(--amber); }
+.tip-reason { color: var(--alert-red); }
+
+/* Order-rail button internals. The rail is built once and only restyled, so
+   these classes are toggled rather than re-rendered. */
+.order-btn .btn-text { pointer-events: none; }
+.order-btn .key { pointer-events: none; }
+.order-btn.is-done { color: var(--phos-mid); border-color: var(--phos-dim); }
+.order-btn.is-done .btn-text::before { content: '\2713\00a0'; }
+.order-btn .cool { pointer-events: none; }
+
+#inflight-rail.is-empty::after {
+  content: '\2014';
+  color: var(--phos-dim);
+  font-size: var(--fs-xs);
+}
