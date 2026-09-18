@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AEGIS · Horizon Command</title>
+<meta name="description" content="You are the commanding officer of a guided missile cruiser, fighting a war you experience entirely through a radar repeater and the voices of your crew.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='none' stroke='%2344e06a' stroke-width='2'/><circle cx='16' cy='16' r='5' fill='none' stroke='%231f7a3a'/><path d='M16 16 L16 4' stroke='%23b8ffcf' stroke-width='2'/></svg>">
+<!-- No webfont fetch. The aesthetic is defined by rules, not assets, and the
+     game must run from a static host or file:// with no network at all. The
+     stacks in tokens.css fall back through ui-monospace and the system UI
+     sans, both of which are tabular and both of which are already installed. -->
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/scope.css">
+<link rel="stylesheet" href="styles/dialogue.css">
+</head>
+<body>
+<div id="app">
+
+  <section id="screen-select"  class="screen is-active"></section>
+  <section id="screen-briefing" class="screen"></section>
+  <section id="screen-debrief"  class="screen"></section>
+
+  <!-- One screen, four zones, no navigation. -->
+  <section id="screen-playing" class="screen">
+    <header id="zone-status"></header>
+
+    <div id="zone-scope">
+      <canvas id="scope-canvas"></canvas>
+      <div id="objective-tray"></div>
+      <div id="hover-readout" class="u-hide"></div>
+      <div id="scope-chrome">
+        <div class="row">
+          <span></span>
+          <div id="scope-controls"></div>
+        </div>
+        <div class="row">
+          <span id="scope-hint">CLICK TRACK TO SELECT &middot; TAB CYCLES &middot; C PLOTS COURSE &middot; SHIFT-CLICK APPENDS &middot; SCROLL ZOOMS</span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="zone-bottom">
+      <div id="zone-profile"></div>
+      <div id="zone-orders"></div>
+    </div>
+
+    <aside id="zone-dialogue">
+      <div id="dialogue-host"></div>
+      <div id="track-data"></div>
+    </aside>
+  </section>
+
+  <div id="crt-overlay"></div>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

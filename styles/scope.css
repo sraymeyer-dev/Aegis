@@ -1,0 +1,38 @@
+/* scope.css — the PPI and its overlays. */
+
+#zone-scope { position: relative; overflow: hidden; }
+#scope-canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+#scope-canvas.is-plotting { cursor: cell; }
+
+#scope-chrome {
+  position: absolute; inset: 0; pointer-events: none;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 10px 12px;
+}
+#scope-chrome .row { display: flex; justify-content: space-between; align-items: flex-end; }
+
+#scope-controls { display: flex; gap: 5px; pointer-events: auto; }
+#scope-controls button {
+  font-size: var(--fs-xs); padding: 2px 7px;
+  color: var(--phos-mid); border-color: var(--phos-dim);
+  background: rgba(5,11,6,0.7);
+}
+#scope-controls button:hover { color: var(--phos-bright); border-color: var(--phos-mid); }
+#scope-controls button.is-on { color: var(--phos-hot); border-color: var(--phos-bright); }
+
+#scope-hint { font-size: var(--fs-xs); color: var(--phos-dim); letter-spacing: var(--track); }
+
+/* Hover readout, floating next to the cursor. Hovering is free and never pauses. */
+#hover-readout {
+  position: absolute; z-index: 30; pointer-events: none;
+  min-width: 190px; padding: 6px 9px;
+  border: 1px solid var(--phos-mid);
+  background: rgba(5, 11, 6, 0.93);
+  font-size: var(--fs-xs); line-height: 1.5;
+}
+#hover-readout.u-hide { display: none; }
+#hover-readout .hr-name { color: var(--phos-hot); font-size: var(--fs-sm); }
+#hover-readout .hr-class { letter-spacing: var(--track); }
+#hover-readout .hr-grid { display: grid; grid-template-columns: auto 1fr; gap: 0 8px; margin-top: 3px; }
+#hover-readout .hr-grid span:nth-child(odd) { color: var(--phos-mid); }
+#hover-readout .hr-rungs { margin-top: 3px; color: var(--phos-mid); }

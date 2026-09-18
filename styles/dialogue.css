@@ -1,0 +1,72 @@
+/* dialogue.css — the crew column. The dialogue system is the only channel
+ * through which intent enters the sim and consequence leaves it. */
+
+#dialogue-column { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+
+#dialogue-history {
+  flex: 1; min-height: 0; overflow-y: auto;
+  padding: 10px 12px; display: flex; flex-direction: column; gap: 10px;
+  /* Newest line sits at the bottom, against the choice panel, so a decision
+     and the line that prompted it are always adjacent. */
+  justify-content: flex-end;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 22px);
+}
+#dialogue-history > .speech { flex: none; }
+.speech { opacity: 0.45; }
+.speech.is-active { opacity: 1; }
+.speech-head {
+  display: flex; align-items: center; gap: 7px;
+  font-size: var(--fs-xs); letter-spacing: var(--track); text-transform: uppercase;
+}
+.speech-portrait { width: 22px; height: 22px; flex: none; border: 1px solid var(--phos-dim); }
+.speech-portrait svg { width: 100%; height: 100%; display: block; }
+.speech-name { color: var(--phos-hot); }
+.speech-role { color: var(--phos-mid); }
+.speech.spk-amber .speech-name { color: var(--amber); }
+.speech.spk-amber .speech-portrait { border-color: var(--amber); }
+
+/* Crew speech breaks the monospace: a condensed grotesque separates the human
+   voice from the machine readout. Readouts stay monospace and tabular. */
+.speech-text {
+  margin-top: 4px;
+  font-family: var(--font-voice);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+  color: var(--phos-bright);
+}
+.speech.is-dropped .speech-text { font-style: italic; color: var(--phos-dim); }
+
+#dialogue-choice {
+  border-top: var(--border-live);
+  padding: 10px 12px;
+  background: rgba(13, 39, 18, 0.22);
+}
+#dialogue-choice.u-hide { display: none; }
+
+.choice-option {
+  display: block; width: 100%; text-align: left;
+  padding: 7px 10px; margin-bottom: 5px;
+  font-family: var(--font-voice);
+  font-size: var(--fs-sm); line-height: 1.4;
+  border-color: var(--phos-dim);
+}
+.choice-option:hover:not(:disabled) { border-color: var(--phos-bright); background: var(--phos-dim); color: var(--phos-hot); }
+.choice-option:disabled { color: var(--phos-dim); border-color: rgba(13,39,18,0.7); }
+.choice-option .opt-key { color: var(--phos-mid); margin-right: 7px; font-family: var(--font-mono); }
+.choice-option.is-default { border-left: 2px solid var(--phos-mid); }
+/* Every requires failure carries a one-line reason. An option greyed out for
+   a reason the player cannot see reads as a bug, not as a rule. */
+.choice-option .opt-reason {
+  display: block; margin-top: 3px;
+  font-family: var(--font-mono); font-size: var(--fs-xs);
+  color: var(--amber); letter-spacing: 0.03em;
+}
+
+#choice-timer { height: 3px; background: var(--phos-dim); margin-bottom: 8px; position: relative; }
+#choice-timer span { position: absolute; inset: 0 auto 0 0; background: var(--phos-bright); }
+#choice-timer.is-urgent span { background: var(--alert-red); }
+#choice-timer-label { font-size: var(--fs-xs); color: var(--phos-mid); letter-spacing: var(--track); margin-bottom: 4px; }
+#choice-timer-label.is-urgent { color: var(--alert-red); }
+#choice-timer.is-paused span { background: var(--amber); }
+
+#queue-depth { font-size: var(--fs-xs); color: var(--phos-dim); text-align: right; padding: 0 12px 4px; }

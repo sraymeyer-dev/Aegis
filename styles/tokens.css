@@ -1,0 +1,97 @@
+/* tokens.css — the whole palette and type scale.
+ *
+ * A 1980s shipboard CRT in a darkened combat information centre. Everything
+ * is emitted light on near-black. The restraint IS the style: no gradients,
+ * no rounded corners, no drop shadows, no illustration. Every pixel is either
+ * a phosphor trace or an unlit screen.
+ *
+ * AMBER IS THE ONLY HUE BREAK AND IT IS RESERVED: hostile declarations,
+ * weapons release, and system failures. Nothing else is ever amber. When the
+ * screen goes amber, it means something.
+ */
+
+:root {
+  --phos-bg:      #050b06;   /* unlit screen */
+  --phos-dim:     #0d2712;   /* grid, rings, inactive */
+  --phos-mid:     #1f7a3a;   /* labels, chrome */
+  --phos-bright:  #44e06a;   /* contacts, active text */
+  --phos-hot:     #b8ffcf;   /* selected, bloom peak */
+  --amber:        #ffb02e;   /* hostile, warning */
+  --amber-hot:    #ffd88a;
+  --alert-red:    #ff4a3d;   /* damage, weapons release */
+  --scanline:     rgba(0, 0, 0, 0.25);
+
+  --font-mono: "Berkeley Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular,
+               "SF Mono", Menlo, Consolas, monospace;
+  /* Tabular figures are a functional requirement here, not a style choice:
+     bearing/range/speed update every tick and proportional digits jitter. */
+  --font-numeric: var(--font-mono);
+  /* Crew speech breaks the monospace deliberately: a sans separates the human
+     voice from the machine readout. Readouts stay monospace and tabular. */
+  --font-voice: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+                "Helvetica Neue", Arial, sans-serif;
+
+  --fs-xs:   10px;
+  --fs-sm:   11px;
+  --fs-base: 13px;
+  --fs-md:   15px;
+  --fs-lg:   19px;
+  --fs-xl:   26px;
+  --fs-xxl:  44px;
+
+  --track:   0.09em;
+  --gap:     8px;
+  --border:  1px solid var(--phos-dim);
+  --border-live: 1px solid var(--phos-mid);
+
+  --dialogue-width: clamp(300px, 24vw, 390px);
+  --bottom-height:  clamp(150px, 21vh, 210px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--phos-bg);
+  color: var(--phos-bright);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.45;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select {
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  background: transparent;
+  border: var(--border-live);
+  border-radius: 0;
+  cursor: pointer;
+}
+button:disabled { cursor: not-allowed; }
+::selection { background: var(--phos-mid); color: var(--phos-hot); }
+
+:focus-visible { outline: 1px solid var(--phos-hot); outline-offset: 1px; }
+
+.u-label {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--phos-mid);
+}
+.u-amber { color: var(--amber); }
+.u-red   { color: var(--alert-red); }
+.u-dim   { color: var(--phos-mid); }
+.u-hot   { color: var(--phos-hot); }
+.u-hide  { display: none !important; }
+
+/* Scrollbars, phosphor-styled rather than left as OS chrome. */
+* { scrollbar-width: thin; scrollbar-color: var(--phos-dim) transparent; }
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-thumb { background: var(--phos-dim); }
+*::-webkit-scrollbar-track { background: transparent; }
