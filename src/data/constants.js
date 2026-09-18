@@ -70,6 +70,9 @@ export const LADDER = {
 /** Passive track accrues +1 confidence per second, capped at 25. */
 export const PASSIVE_GAIN_PER_SEC = 1;
 
+/** One active sonar prosecution buys the extended picture for this long. */
+export const ACTIVE_SONAR_SECONDS = 90;
+
 export const CONFIDENCE_UNKNOWN = 40;   // below this: unknown
 export const CONFIDENCE_CONFIRMED = 75; // at or above this: confirmed
 

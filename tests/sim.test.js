@@ -292,3 +292,54 @@ test('losing engineering caps speed at 12 knots', () => {
   runFor(state, bus, 90);
   assert.ok(state.ownship.speed <= 12.01, `expected <=12 kts, got ${state.ownship.speed}`);
 });
+
+/* --- mission-level deception, across the whole campaign --------------- */
+
+test('a stolen IFF makes the full ladder confirm the wrong answer', () => {
+  const MISSION_04 = 'missions/04-black-lantern.json';
+  const ladder = [
+    { when: { contactDetected: { id: 'c_pgm' } }, intent: 'order:iff', payload: { id: 'c_pgm' } },
+    { when: { contactDetected: { id: 'c_pgm' } }, intent: 'order:esm', payload: { id: 'c_pgm' } },
+    { when: { contactWithin: { id: 'c_pgm', nm: 24 } }, intent: 'order:hail', payload: { id: 'c_pgm' } },
+  ];
+
+  const fooled = runHeadless(MISSION_04, { seconds: 1800, script: ladder, seed: 'iff' }).state
+    .contacts.get('c_pgm');
+  assert.equal(fooled.confidence, 100, 'every reachable rung answers, so confidence maxes out');
+  assert.equal(fooled.displayedClass, 'confirmed-friendly',
+    'the ladder must be able to reach FULL confidence in the wrong answer');
+  assert.equal(fooled.truth.allegiance, 'hostile');
+  assert.ok(!fooled.apparent.type.includes('captured'), 'the hidden truth must not leak into the readout');
+
+  const prosecuted = runHeadless(MISSION_04, {
+    seconds: 1800, seed: 'iff',
+    script: [...ladder, { when: { contactWithin: { id: 'c_pgm', nm: 20 } }, intent: 'order:investigate', payload: { id: 'c_pgm' } }],
+  }).state.contacts.get('c_pgm');
+  assert.equal(prosecuted.displayedClass, 'confirmed-hostile',
+    'only an authority-5 action breaks the deception');
+});
+
+test('every mission in the campaign runs to an authored outcome with no input', async () => {
+  const { readdirSync } = await import('node:fs');
+  const files = readdirSync('missions').filter((f) => f.endsWith('.json') && f !== 'manifest.json');
+  assert.ok(files.length >= 4, 'the campaign should have at least four missions');
+  for (const f of files) {
+    const { state } = runHeadless(`missions/${f}`, { seconds: 4000, script: [] });
+    assert.ok(state.ended, `${f} never ended`);
+    assert.ok(state.ended.outcomeId, `${f} ended with no outcome`);
+    const outcome = state.mission.outcomes.find((o) => o.id === state.ended.outcomeId);
+    assert.ok(outcome, `${f} selected an outcome that is not in the mission`);
+    assert.ok(outcome.debrief.length > 80, `${f}: ${outcome.id} has no real debrief text`);
+  }
+});
+
+test('a flag objective asking for false is standing; asking for true is an achievement', () => {
+  // The distinction the campaign depends on: "no civilian casualties" holds
+  // from tick zero, "deliver the strike" is pending until it happens.
+  const { state } = runHeadless('missions/04-black-lantern.json', { seconds: 60, script: [] });
+  const strike = state.objectives.find((o) => o.id === 'ob4_strike');
+  const clean = state.objectives.find((o) => o.id === 'ob4_no_blue');
+  assert.equal(strike.status, 'active', 'an achievement objective must not fail before it can happen');
+  assert.equal(clean.status, 'active');
+  assert.equal(state.ended, null, 'the mission must not end on the first tick');
+});

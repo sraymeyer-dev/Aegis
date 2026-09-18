@@ -79,10 +79,19 @@ function evaluateObjective(state, o, dt) {
       const actual = state.flags.get(p.key);
       const expected = p.value;
       const matches = expected === false ? (actual === false || actual === undefined) : actual === expected;
-      // A flag objective is a standing condition: it holds until the mission
-      // ends, and it fails the moment it stops holding.
-      if (!matches) return false;
-      return state.pendingEnd ? true : null;
+      // A flag objective is read two ways, decided by the value it asks for.
+      //
+      //   value: false  a STANDING condition -- "no civilian casualties".
+      //                 It holds from tick zero and fails the moment it stops
+      //                 holding.
+      //   value: truthy an ACHIEVEMENT -- "deliver the strike". It is pending
+      //                 until the flag is set, and only fails if the mission
+      //                 ends without it.
+      //
+      // Collapsing these two was a real bug: an achievement objective failed
+      // on the first tick, because the thing it asks for has not happened yet.
+      if (expected === false) return matches ? (state.pendingEnd ? true : null) : false;
+      return matches ? true : null;
     }
 
     default:
@@ -137,6 +146,8 @@ export function settleObjectivesAtEnd(state) {
       const expected = p.value;
       status = (expected === false ? (actual === false || actual === undefined) : actual === expected)
         ? 'complete' : 'failed';
+    } else if (o.type === 'reach' || o.type === 'identify' || o.type === 'destroy') {
+      status = 'failed';   // never achieved before the mission ended
     }
     o.status = status;
     state.flags.set(o.id, status);

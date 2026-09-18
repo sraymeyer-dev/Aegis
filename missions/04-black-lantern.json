@@ -1,0 +1,896 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "id": "04-black-lantern",
+    "title": "Black Lantern",
+    "subtitle": "Northern Arabian Gulf \u00b7 0415 local",
+    "briefing": "## TASKING\n\nProceed to launch basket **LANTERN** and hold for a Tomahawk release against a coastal radar site. The basket is twelve miles north-east of your present position and you must be inside it, and stay inside it, for the strike window.\n\n## COMPLICATION\n\nA coalition patrol boat, **PGM SEVENTEEN**, was reported overdue in this area two nights ago. Nobody has said the word captured out loud.\n\nHer IFF set went with her.\n\nA contact squawking a friendly code is not the same as a friendly contact, and nothing in the ladder short of putting eyes on a hull will tell you the difference. You have a helicopter for that, and it takes two minutes.\n\n**ROE: WEAPONS TIGHT.**",
+    "difficulty": 5,
+    "durationLimit": 2700,
+    "initialRoe": "tight",
+    "origin": {
+      "lat": 29.4,
+      "lon": 48.9
+    }
+  },
+  "ownship": {
+    "name": "USS VALLEY FORGE",
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "course": 45,
+    "speed": 24,
+    "magazines": {
+      "sm2": 6,
+      "harpoon": 6,
+      "tomahawk": 4,
+      "gun": 200,
+      "asroc": 0
+    },
+    "sensors": {
+      "radarRange": 120,
+      "surfaceRange": 25,
+      "esmRange": 140
+    }
+  },
+  "contacts": [
+    {
+      "id": "c_pgm",
+      "name": "PGM SEVENTEEN",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "hostile",
+        "type": "captured patrol boat"
+      },
+      "pos": {
+        "x": 26,
+        "y": 22
+      },
+      "course": 225,
+      "speed": 26,
+      "spawnAt": 420,
+      "behavior": {
+        "kind": "attack",
+        "targetId": "ownship",
+        "weaponRange": 8,
+        "firesAt": 6,
+        "reloadSeconds": 90
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": true,
+        "iffMode": "mil"
+      },
+      "deception": {
+        "iff": "friendly",
+        "profile": "patrol boat",
+        "emitter": "allied surface search radar"
+      },
+      "hp": 45
+    },
+    {
+      "id": "c_real_friendly",
+      "name": "PGM NINETEEN",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "friendly",
+        "type": "patrol boat"
+      },
+      "pos": {
+        "x": -18,
+        "y": 24
+      },
+      "course": 120,
+      "speed": 22,
+      "spawnAt": 700,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 14,
+            "y": 8
+          },
+          {
+            "x": 30,
+            "y": -6
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": true,
+        "iffMode": "mil"
+      },
+      "hp": 45
+    },
+    {
+      "id": "c_tender",
+      "name": "Coastal freighter",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "neutral",
+        "type": "coastal freighter"
+      },
+      "pos": {
+        "x": 21,
+        "y": -9
+      },
+      "course": 330,
+      "speed": 9,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 6,
+            "y": 14
+          },
+          {
+            "x": -6,
+            "y": 26
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "medium",
+        "emitting": true,
+        "iffMode": "civil"
+      },
+      "hp": 120
+    },
+    {
+      "id": "c_escort_air",
+      "name": "HAWK 03",
+      "domain": "air",
+      "truth": {
+        "allegiance": "friendly",
+        "type": "strike fighter"
+      },
+      "pos": {
+        "x": -44,
+        "y": 52
+      },
+      "course": 150,
+      "speed": 380,
+      "alt": 22000,
+      "spawnAt": 1400,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 26,
+            "y": 4
+          },
+          {
+            "x": -44,
+            "y": 52
+          }
+        ],
+        "loop": true
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": true,
+        "iffMode": "mil"
+      },
+      "hp": 40
+    }
+  ],
+  "speakers": {
+    "tao": {
+      "name": "LT REYES",
+      "role": "TAO",
+      "portrait": "tao",
+      "color": "amber"
+    },
+    "cic": {
+      "name": "OS2 KOVAC",
+      "role": "CIC WATCH",
+      "portrait": "cic",
+      "color": "green"
+    },
+    "xo": {
+      "name": "CDR ELLIS",
+      "role": "XO",
+      "portrait": "xo",
+      "color": "green"
+    },
+    "esm": {
+      "name": "ET1 BRUNO",
+      "role": "ESM WATCH",
+      "portrait": "esm",
+      "color": "green"
+    },
+    "fleet": {
+      "name": "FIFTH FLEET",
+      "role": "COMMAND",
+      "portrait": "fleet",
+      "color": "amber"
+    },
+    "helo": {
+      "name": "MAGNUM 41",
+      "role": "HELO",
+      "portrait": "external",
+      "color": "green"
+    }
+  },
+  "nodes": [
+    {
+      "id": "n4_open",
+      "speaker": "fleet",
+      "trigger": {
+        "always": true
+      },
+      "priority": 9,
+      "text": "VALLEY FORGE, FIFTH FLEET. Proceed to LANTERN and report when established. Strike authorisation will follow. Be advised the overdue coalition unit has not been located and her identification equipment is unaccounted for."
+    },
+    {
+      "id": "n4_xo_open",
+      "speaker": "xo",
+      "trigger": {
+        "timeAfter": 16
+      },
+      "text": "Nineteen miles to the basket at twenty knots, Captain. And for the record: if her set is unaccounted for, then a friendly squawk in this water tonight is a claim, not a fact."
+    },
+    {
+      "id": "n4_tender",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_tender"
+        }
+      },
+      "text": "Surface track inbound from the south-east, slow, big enough to be a coaster. Squawking civil.",
+      "focus": [
+        "c_tender"
+      ]
+    },
+    {
+      "id": "n4_basket",
+      "speaker": "tao",
+      "trigger": {
+        "ownshipWithin": {
+          "pos": {
+            "x": 9,
+            "y": 8
+          },
+          "nm": 4
+        }
+      },
+      "priority": 8,
+      "text": "Established in LANTERN, Captain. Fire control has the coordinates and the birds are spun up. We need to stay in this box.",
+      "effects": [
+        {
+          "setFlag": {
+            "key": "in_basket",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n4_auth",
+      "speaker": "fleet",
+      "trigger": {
+        "flag": "in_basket",
+        "is": true
+      },
+      "priority": 9,
+      "text": "VALLEY FORGE, strike is authorised. Launch on your readiness. The window closes when it closes and there is no second pass.",
+      "effects": [
+        {
+          "setFlag": {
+            "key": "strike_authorised",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n4_pgm_detect",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_pgm"
+        }
+      },
+      "priority": 8,
+      "text": "Surface contact north-east, closing fast. Small, quick, and she is squawking. Captain \u2014 the code coming back is one of ours.",
+      "focus": [
+        "c_pgm"
+      ]
+    },
+    {
+      "id": "n4_pgm_esm",
+      "speaker": "esm",
+      "trigger": {
+        "all": [
+          {
+            "contactDetected": {
+              "id": "c_pgm"
+            }
+          },
+          {
+            "timeAfter": 520
+          }
+        ]
+      },
+      "text": "Surface search set on that contact matches the coalition fit, Captain. Same set she left port with. That tells us where the equipment is. It does not tell us who is turning the knobs."
+    },
+    {
+      "id": "n4_pgm_xo",
+      "speaker": "xo",
+      "trigger": {
+        "nodeFired": "n4_pgm_esm"
+      },
+      "priority": 7,
+      "text": "Everything that box can tell us is going to keep saying friendly, Captain, because everything that box is reading was built into a hull that is no longer necessarily ours. The only instrument left is the aircraft."
+    },
+    {
+      "id": "n4_pgm_choice",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "contactWithin": {
+              "id": "c_pgm",
+              "nm": 22
+            }
+          },
+          {
+            "not": {
+              "flag": "pgm_worked",
+              "is": true
+            }
+          }
+        ]
+      },
+      "priority": 9,
+      "text": "She is closing us and she is not answering the strike window. Your call, Captain.",
+      "focus": [
+        "c_pgm"
+      ],
+      "timeoutSeconds": 18,
+      "defaultOption": "o4_hold",
+      "options": [
+        {
+          "id": "o4_helo",
+          "text": "Launch the helo. I want a hull and a face, not a code.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_pgm",
+              "nm": 25
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "pgm_worked",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "helo_on_pgm",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n4_helo_report",
+                "afterSeconds": 120
+              }
+            }
+          ]
+        },
+        {
+          "id": "o4_illuminate",
+          "text": "Illuminate her. See what a lock does to her manners.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_pgm",
+              "nm": 25
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "pgm_worked",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "lit_the_pgm",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n4_no_flinch",
+                "afterSeconds": 14
+              }
+            }
+          ]
+        },
+        {
+          "id": "o4_hold",
+          "text": "She is squawking friendly. Hold and watch her.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "pgm_worked",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n4_helo_report",
+      "speaker": "helo",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "priority": 10,
+      "text": "MAGNUM 41, overhead the contact. Captain, the hull number is right and the people on deck are not. There are men on that boat in the wrong uniform and the mount is manned and trained out at you.",
+      "focus": [
+        "c_pgm"
+      ],
+      "effects": [
+        {
+          "revealTruth": {
+            "id": "c_pgm"
+          }
+        },
+        {
+          "setDeception": {
+            "id": "c_pgm",
+            "block": null
+          }
+        },
+        {
+          "setFlag": {
+            "key": "pgm_unmasked",
+            "value": true
+          }
+        },
+        {
+          "setFlag": {
+            "key": "auth.release.c_pgm",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n4_no_flinch",
+      "speaker": "esm",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "She took the lock and kept coming, Captain. A coalition boat lit up by a friendly cruiser gets on the radio inside five seconds and screams about it. This one did not say a word."
+    },
+    {
+      "id": "n4_real_friendly",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_real_friendly"
+        }
+      },
+      "priority": 8,
+      "text": "Second small surface contact, Captain, north-west this time, and also squawking a coalition code. There are now two boats out here claiming to be on our side.",
+      "focus": [
+        "c_real_friendly",
+        "c_pgm"
+      ]
+    },
+    {
+      "id": "n4_two_claims",
+      "speaker": "xo",
+      "trigger": {
+        "nodeFired": "n4_real_friendly"
+      },
+      "priority": 8,
+      "text": "Two claims and one of them is a lie. The difference between them is not on any console in this room, Captain, and we have one aircraft."
+    },
+    {
+      "id": "n4_strike_choice",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "flag": "strike_authorised",
+            "is": true
+          },
+          {
+            "not": {
+              "flag": "strike_resolved",
+              "is": true
+            }
+          }
+        ]
+      },
+      "priority": 9,
+      "text": "Strike is authorised and we are in the box. Say the word and I will put four birds downrange \u2014 but the launch sequence has fire control for ninety seconds and I cannot fight a surface contact while it runs.",
+      "focus": [
+        "c_pgm"
+      ],
+      "timeoutSeconds": 20,
+      "defaultOption": "o4_strike_wait",
+      "options": [
+        {
+          "id": "o4_strike_now",
+          "text": "Launch the strike. Now, while we have the window.",
+          "requires": {
+            "flag": "in_basket",
+            "is": true
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "strike_resolved",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "struck",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n4_strike_away",
+                "afterSeconds": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "o4_strike_after",
+          "text": "Not while that contact is inside twenty. Resolve her first.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_pgm",
+              "nm": 20
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "strike_resolved",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "strike_deferred",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n4_window_closing",
+                "afterSeconds": 200
+              }
+            }
+          ]
+        },
+        {
+          "id": "o4_strike_wait",
+          "text": "Stand by. Not yet.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "strike_resolved",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n4_strike_away",
+      "speaker": "tao",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "priority": 9,
+      "text": "Birds away. Four in the air and fire control is committed for the next ninety seconds. Whatever happens on the surface in that time happens without us.",
+      "effects": [
+        {
+          "setFlag": {
+            "key": "strike_launched",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n4_window_closing",
+      "speaker": "fleet",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "priority": 9,
+      "text": "VALLEY FORGE, the strike window is closing. If those birds are not off the rail in the next few minutes the target is a night problem for somebody else and the site stays up."
+    },
+    {
+      "id": "n4_pgm_shoots",
+      "speaker": "cic",
+      "trigger": {
+        "flag": "sys.hostileAct.c_pgm",
+        "is": true
+      },
+      "priority": 10,
+      "text": "MISSILE INBOUND. That contact just launched on us. Whatever her transponder has been saying for the last twenty minutes, that is the answer.",
+      "focus": [
+        "c_pgm"
+      ],
+      "effects": [
+        {
+          "setRoe": {
+            "level": "selfDefense"
+          }
+        },
+        {
+          "setFlag": {
+            "key": "auth.release.c_pgm",
+            "value": true
+          }
+        },
+        {
+          "revealTruth": {
+            "id": "c_pgm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "n4_blue_on_blue",
+      "speaker": "fleet",
+      "trigger": {
+        "contactDestroyed": {
+          "id": "c_real_friendly"
+        }
+      },
+      "priority": 10,
+      "text": "VALLEY FORGE, cease fire. CEASE FIRE. PGM NINETEEN has stopped transmitting and she was where you are shooting."
+    },
+    {
+      "id": "n4_pgm_dead",
+      "speaker": "cic",
+      "trigger": {
+        "contactDestroyed": {
+          "id": "c_pgm"
+        }
+      },
+      "priority": 8,
+      "text": "That contact is off the board, Captain. She burned quickly for a boat that size."
+    },
+    {
+      "id": "n4_hawk",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_escort_air"
+        }
+      },
+      "text": "Strike escort is overhead, Captain. He'll hold high cover while the window is open.",
+      "focus": [
+        "c_escort_air"
+      ]
+    },
+    {
+      "id": "n4_damage",
+      "speaker": "xo",
+      "trigger": {
+        "flag": "sys.ownshipDamaged",
+        "is": true
+      },
+      "priority": 10,
+      "text": "We are hit, Captain. Damage control is away. We are still in the box \u2014 barely, and not for long if engineering is part of this."
+    },
+    {
+      "id": "n4_out_of_basket",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "flag": "in_basket",
+            "is": true
+          },
+          {
+            "flag": "strike_launched",
+            "is": false
+          },
+          {
+            "not": {
+              "ownshipWithin": {
+                "pos": {
+                  "x": 9,
+                  "y": 8
+                },
+                "nm": 6
+              }
+            }
+          }
+        ]
+      },
+      "priority": 8,
+      "text": "Captain, we are outside LANTERN. Fire control has lost the solution and I cannot launch from here."
+    },
+    {
+      "id": "n4_close",
+      "speaker": "xo",
+      "trigger": {
+        "all": [
+          {
+            "timeAfter": 2200
+          },
+          {
+            "flag": "strike_launched",
+            "is": true
+          }
+        ]
+      },
+      "text": "Site is off the air, Captain. Fleet has it as destroyed. Everything else about tonight is going to take longer to settle than that did."
+    }
+  ],
+  "objectives": [
+    {
+      "id": "ob4_basket",
+      "type": "reach",
+      "text": "Reach launch basket LANTERN",
+      "params": {
+        "pos": {
+          "x": 9,
+          "y": 8
+        },
+        "nm": 4
+      }
+    },
+    {
+      "id": "ob4_hold",
+      "type": "hold",
+      "text": "Hold inside LANTERN for the strike window",
+      "params": {
+        "pos": {
+          "x": 9,
+          "y": 8
+        },
+        "nm": 6,
+        "seconds": 600
+      }
+    },
+    {
+      "id": "ob4_strike",
+      "type": "flag",
+      "text": "Deliver the strike",
+      "params": {
+        "key": "strike_launched",
+        "value": true
+      }
+    },
+    {
+      "id": "ob4_survive",
+      "type": "survive",
+      "text": "VALLEY FORGE survives",
+      "params": {}
+    },
+    {
+      "id": "ob4_no_blue",
+      "type": "flag",
+      "optional": true,
+      "text": "No friendly or civilian losses",
+      "params": {
+        "key": "sys.friendlyKilled",
+        "value": false
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "inquiry4",
+      "rating": "INQUIRY",
+      "condition": {
+        "any": [
+          {
+            "flag": "sys.friendlyKilled",
+            "is": true
+          },
+          {
+            "flag": "sys.neutralKilled",
+            "is": true
+          }
+        ]
+      },
+      "title": "Board of Inquiry Convened",
+      "debrief": "Two small boats, two coalition codes, and this ship put weapons on the one that was telling the truth.\n\nThe finding will note that the enemy held a valid transponder, and that this was known, and briefed, and in the first signal of the night. It will note that the ladder returned friendly at every rung it could reach, exactly as designed, because the equipment answering those rungs was coalition equipment in the wrong hands.\n\nIt will also note that there was one instrument aboard that could have told the difference, and where that instrument was at the moment of decision.\n\nAegis worked. That is always the finding."
+    },
+    {
+      "id": "lantern_clean",
+      "rating": "S",
+      "condition": {
+        "all": [
+          {
+            "flag": "strike_launched",
+            "is": true
+          },
+          {
+            "contactDestroyed": {
+              "id": "c_pgm"
+            }
+          },
+          {
+            "not": {
+              "flag": "sys.friendlyKilled",
+              "is": true
+            }
+          },
+          {
+            "not": {
+              "flag": "sys.neutralKilled",
+              "is": true
+            }
+          },
+          {
+            "not": {
+              "flag": "sys.ownshipDamaged",
+              "is": true
+            }
+          }
+        ]
+      },
+      "title": "Black Lantern",
+      "debrief": "The site is off the air, the captured boat is on the bottom, and the boat that was genuinely ours went home.\n\nEvery console in this room said the same wrong thing for twenty minutes, and it said it with rising confidence, because that is what a stolen transponder does to a confidence ladder. The picture did not get less certain as you worked it. It got more certain, and more wrong.\n\nThe helicopter is the only reason this debrief reads the way it does."
+    },
+    {
+      "id": "struck_but_hurt",
+      "rating": "B",
+      "condition": {
+        "all": [
+          {
+            "flag": "strike_launched",
+            "is": true
+          },
+          {
+            "not": {
+              "flag": "sys.friendlyKilled",
+              "is": true
+            }
+          }
+        ]
+      },
+      "title": "Target Serviced",
+      "debrief": "The birds got off and the site is down.\n\nThe surface problem was handled late, or expensively, or both. A boat making twenty-six knots covers the last ten miles in twenty minutes and the launch sequence owns fire control for ninety seconds of it \u2014 that arithmetic was available from the first signal of the night.\n\nNobody who should have gone home did not. The rest is bookkeeping."
+    },
+    {
+      "id": "no_strike",
+      "rating": "D",
+      "condition": {
+        "flag": "strike_launched",
+        "is": false
+      },
+      "title": "Window Closed",
+      "debrief": "The radar site is still transmitting.\n\nThe caution was not unreasonable. There were two contacts claiming the same allegiance and one aircraft to settle it with, and holding fire against a friendly squawk is the instinct this whole service spends careers building.\n\nIt was also the entire reason the boat was sent, and the window is not coming back. Somebody flies through that radar's coverage tomorrow."
+    },
+    {
+      "id": "fallback4",
+      "rating": "C",
+      "condition": {
+        "always": true
+      },
+      "title": "Mission Closed",
+      "debrief": "The strike went out and the night ended without a clean answer to what was actually in the water.\n\nThat is a more common ending than the manuals admit, and it is not the same as getting away with it."
+    }
+  ]
+}

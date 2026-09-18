@@ -137,6 +137,9 @@ export function hydrateOwnship(mission) {
     damageControlZone: null,
     /** Per-weapon reload, in seconds. A cruiser does not fire a salvo per tick. */
     weaponCooldowns: {},
+    /** Active sonar is a timed state bought by pinging, not a toggle. */
+    sonarActiveUntil: -1,
+    clockNow: 0,
     /** Bearing quadrant blinded when the SPY-1 face is destroyed, or null. */
     blindQuadrant: null,
     crippled: false,

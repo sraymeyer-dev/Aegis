@@ -23,6 +23,7 @@
 
 import {
   LADDER, PASSIVE_GAIN_PER_SEC, CONFIDENCE_UNKNOWN, CONFIDENCE_CONFIRMED,
+  ACTIVE_SONAR_SECONDS,
 } from '../data/constants.js';
 import { range, bearing, normaliseDeg } from '../core/geometry.js';
 import { nextTrackNumber } from '../core/state.js';
@@ -74,7 +75,10 @@ export function detectionRangeFor(ownship, contact) {
   switch (contact.domain) {
     case 'air':       return s.radarRange * radarFactor;
     case 'missile':   return s.radarRange * radarFactor;
-    case 'subsurface': return ownship.sonarActive ? s.sonarRangeActive : s.sonarRangePassive;
+    // Active sonar is bought by pinging, which is the same trade as the
+    // fire-control radar: it tells you a great deal and it announces you.
+    case 'subsurface': return ownship.sonarActiveUntil > ownship.clockNow
+      ? s.sonarRangeActive : s.sonarRangePassive;
     default:          return s.surfaceRange * radarFactor;
   }
 }
@@ -92,6 +96,7 @@ function inBlindQuadrant(ownship, contact) {
 
 export function stepSensors(state, dt) {
   const own = state.ownship;
+  own.clockNow = state.clock.t;
 
   for (const c of state.contacts.values()) {
     if (!c.alive || !c.active) continue;
@@ -188,7 +193,16 @@ function completeResolutionAction(state, c, action) {
       break;
     case 'illuminate':
       c.resolution.illuminated = true;
-      logTrack(state, c, 'illuminate', 'illuminated with fire-control radar');
+      if (c.domain === 'subsurface') {
+        // Below the surface the equivalent order is an active ping: same
+        // trade, louder consequence, and it lights up everything down there.
+        state.ownship.sonarActiveUntil = state.clock.t + ACTIVE_SONAR_SECONDS;
+        state.flags.set('sys.wentActive', true);
+        logTrack(state, c, 'illuminate', 'prosecuted with active sonar');
+        state.events.push({ kind: 'sonar:active', id: c.id });
+      } else {
+        logTrack(state, c, 'illuminate', 'illuminated with fire-control radar');
+      }
       applyIlluminationRisk(state, c);
       break;
     case 'investigate':
@@ -271,7 +285,9 @@ export function computeApparent(c) {
       authority: 3,
       rank: 3,
       allegiance: emitter ? deceptionPersona(d).allegiance : c.truth.allegiance,
-      type: emitter ?? c.truth.type,
+      // An emitter fingerprint tells you whose equipment it is, not what hull
+      // it is bolted to. The type still comes from the persona or the truth.
+      type: emitter ? (deceptionPersona(d).type ?? c.truth.type) : c.truth.type,
       source: 'esm',
     });
   }

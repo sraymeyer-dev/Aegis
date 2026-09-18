@@ -5,5 +5,26 @@
     "title": "Strait Transit",
     "subtitle": "Strait of Hormuz · 0340 local",
     "difficulty": 2
+  },
+  {
+    "file": "02-shadow-play.json",
+    "id": "02-shadow-play",
+    "title": "Shadow Play",
+    "subtitle": "Eastern Mediterranean · 0210 local",
+    "difficulty": 4
+  },
+  {
+    "file": "03-red-sea-gauntlet.json",
+    "id": "03-red-sea-gauntlet",
+    "title": "Red Sea Gauntlet",
+    "subtitle": "Bab-el-Mandeb · 1940 local",
+    "difficulty": 5
+  },
+  {
+    "file": "04-black-lantern.json",
+    "id": "04-black-lantern",
+    "title": "Black Lantern",
+    "subtitle": "Northern Arabian Gulf · 0415 local",
+    "difficulty": 5
   }
 ]

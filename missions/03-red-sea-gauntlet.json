@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "id": "03-red-sea-gauntlet",
+    "title": "Red Sea Gauntlet",
+    "subtitle": "Bab-el-Mandeb · 1940 local",
+    "briefing": "## TASKING\n\nHold the southern gate while three merchant hulls clear the strait northbound.\n\nShore batteries on the eastern bank have engaged shipping four times this month. Two of those engagements were anti-ship missiles. The others were drones, launched in numbers, cheap enough that the people launching them do not care what happens to them.\n\n## THIS IS NOT THE LAST MISSION\n\nYou are **WEAPONS FREE** on declared hostiles from the first minute. The question tonight is not whether you are allowed to shoot.\n\nIt is that you have **eight SM-2** and there will be more inbound than that, and every round you spend on something that was never going to hit anybody is a round you do not have when something is.\n\nCivil air still transits this corridor. The airway runs directly over the gate.",
+    "difficulty": 5,
+    "durationLimit": 2400,
+    "initialRoe": "free",
+    "origin": { "lat": 12.6, "lon": 43.3 }
+  },
+
+  "ownship": {
+    "name": "USS VALLEY FORGE",
+    "pos": { "x": 0, "y": 0 },
+    "course": 0,
+    "speed": 16,
+    "magazines": { "sm2": 8, "harpoon": 4, "gun": 240, "asroc": 0 },
+    "sensors": { "radarRange": 120, "surfaceRange": 25, "esmRange": 140 }
+  },
+
+  "contacts": [
+    {
+      "id": "c_convoy_a",
+      "name": "MV KESTREL POINT",
+      "domain": "surface",
+      "truth": { "allegiance": "friendly", "type": "container ship" },
+      "pos": { "x": -6, "y": -16 },
+      "course": 10,
+      "speed": 17,
+      "behavior": { "kind": "patrol", "waypoints": [ { "x": -2, "y": 12 }, { "x": 2, "y": 30 } ] },
+      "sensor": { "rcs": "large", "emitting": true, "iffMode": "civil" },
+      "hp": 260
+    },
+    {
+      "id": "c_convoy_b",
+      "name": "MV SABLE RUN",
+      "domain": "surface",
+      "truth": { "allegiance": "friendly", "type": "bulk carrier" },
+      "pos": { "x": -9, "y": -21 },
+      "course": 10,
+      "speed": 17,
+      "behavior": { "kind": "patrol", "waypoints": [ { "x": -5, "y": 9 }, { "x": -1, "y": 27 } ] },
+      "sensor": { "rcs": "large", "emitting": true, "iffMode": "civil" },
+      "hp": 260
+    },
+    {
+      "id": "c_airway",
+      "name": "GULF 214 heavy",
+      "domain": "air",
+      "truth": { "allegiance": "neutral", "type": "airliner" },
+      "pos": { "x": -78, "y": 34 },
+      "course": 118,
+      "speed": 430,
+      "alt": 33000,
+      "spawnAt": 300,
+      "behavior": { "kind": "patrol", "waypoints": [ { "x": 92, "y": -46 } ] },
+      "sensor": { "rcs": "large", "emitting": true, "iffMode": "civil" },
+      "hp": 40
+    },
+    {
+      "id": "c_drone_1",
+      "name": "Air contact",
+      "domain": "air",
+      "truth": { "allegiance": "hostile", "type": "one-way attack drone" },
+      "pos": { "x": 46, "y": 22 },
+      "course": 245,
+      "speed": 110,
+      "alt": 900,
+      "spawnAt": 420,
+      "behavior": { "kind": "attack", "targetId": "c_convoy_a", "weaponRange": 0.4, "firesAt": 0.3 },
+      "sensor": { "rcs": "small", "emitting": false, "iffMode": "none" },
+      "hp": 8
+    },
+    {
+      "id": "c_drone_2",
+      "name": "Air contact",
+      "domain": "air",
+      "truth": { "allegiance": "hostile", "type": "one-way attack drone" },
+      "pos": { "x": 52, "y": 8 },
+      "course": 260,
+      "speed": 110,
+      "alt": 900,
+      "spawnAt": 500,
+      "behavior": { "kind": "attack", "targetId": "ownship", "weaponRange": 0.4, "firesAt": 0.3 },
+      "sensor": { "rcs": "small", "emitting": false, "iffMode": "none" },
+      "hp": 8
+    },
+    {
+      "id": "c_decoy",
+      "name": "Air contact",
+      "domain": "air",
+      "truth": { "allegiance": "hostile", "type": "decoy drone" },
+      "pos": { "x": 49, "y": -14 },
+      "course": 300,
+      "speed": 105,
+      "alt": 1100,
+      "spawnAt": 640,
+      "behavior": { "kind": "patrol", "waypoints": [ { "x": -30, "y": 26 } ] },
+      "sensor": { "rcs": "small", "emitting": false, "iffMode": "none" },
+      "hp": 8
+    },
+    {
+      "id": "c_asm",
+      "name": "Air contact",
+      "domain": "air",
+      "truth": { "allegiance": "hostile", "type": "anti-ship missile" },
+      "pos": { "x": 44, "y": -4 },
+      "course": 262,
+      "speed": 520,
+      "alt": 150,
+      "spawnAt": 1250,
+      "behavior": { "kind": "attack", "targetId": "c_convoy_b", "weaponRange": 0.4, "firesAt": 0.3 },
+      "sensor": { "rcs": "small", "emitting": true, "iffMode": "none" },
+      "hp": 6
+    },
+    {
+      "id": "c_dhow",
+      "name": "Dhow",
+      "domain": "surface",
+      "truth": { "allegiance": "neutral", "type": "dhow" },
+      "pos": { "x": 17, "y": -13 },
+      "course": 300,
+      "speed": 7,
+      "behavior": { "kind": "patrol", "waypoints": [ { "x": -8, "y": 4 } ] },
+      "sensor": { "rcs": "small", "emitting": false, "iffMode": "none" },
+      "hp": 15
+    }
+  ],
+
+  "speakers": {
+    "tao": { "name": "LT REYES", "role": "TAO", "portrait": "tao", "color": "amber" },
+    "cic": { "name": "OS2 KOVAC", "role": "CIC WATCH", "portrait": "cic", "color": "green" },
+    "xo": { "name": "CDR ELLIS", "role": "XO", "portrait": "xo", "color": "green" },
+    "esm": { "name": "ET1 BRUNO", "role": "ESM WATCH", "portrait": "esm", "color": "green" },
+    "fleet": { "name": "FIFTH FLEET", "role": "COMMAND", "portrait": "fleet", "color": "amber" }
+  },
+
+  "nodes": [
+    {
+      "id": "n3_open",
+      "speaker": "xo",
+      "trigger": { "always": true },
+      "priority": 8,
+      "text": "Two hulls northbound and the gate is ours until they are through it. Weapons free from the top, Captain — which I would remind everyone is not the same as weapons cheap.",
+      "focus": [ "c_convoy_a", "c_convoy_b" ]
+    },
+    {
+      "id": "n3_magazine",
+      "speaker": "tao",
+      "trigger": { "timeAfter": 18 },
+      "text": "Eight birds on the rail. Historically this shore puts up more than eight things in a night and most of them are plywood and a lawnmower engine. I would like your guidance on what we are saving them for."
+    },
+    {
+      "id": "n3_gun_note",
+      "speaker": "tao",
+      "trigger": { "timeAfter": 50 },
+      "text": "For what it's worth, the five-inch reaches thirteen miles and a drone is a slow, straight, unarmoured thing. It is not elegant. It is also not a missile out of the magazine."
+    },
+    {
+      "id": "n3_airway",
+      "speaker": "cic",
+      "trigger": { "contactDetected": { "id": "c_airway" } },
+      "text": "High track entering from the north-west, well up in the flight levels and moving like an airliner. The corridor runs straight over the gate and it is busy tonight.",
+      "focus": [ "c_airway" ]
+    },
+    {
+      "id": "n3_airway_esm",
+      "speaker": "esm",
+      "trigger": { "all": [
+        { "nodeFired": "n3_airway" },
+        { "timeAfter": 340 } ] },
+      "text": "Weather radar and a civil transponder on that high track, Captain. It is squawking the way something squawks when it wants to be seen."
+    },
+    {
+      "id": "n3_first_drone",
+      "speaker": "cic",
+      "trigger": { "contactDetected": { "id": "c_drone_1" } },
+      "priority": 8,
+      "text": "Low and slow out of the east, Captain. Small return, no transponder, no emissions. It is not going anywhere a person would want to go.",
+      "focus": [ "c_drone_1", "c_convoy_a" ]
+    },
+    {
+      "id": "n3_first_choice",
+      "speaker": "tao",
+      "trigger": { "all": [
+        { "contactWithin": { "id": "c_drone_1", "nm": 40 } },
+        { "not": { "flag": "first_drone_handled", "is": true } } ] },
+      "priority": 9,
+      "text": "First one's inbound on the lead hull. What do you want to spend on it?",
+      "focus": [ "c_drone_1", "c_convoy_a" ],
+      "timeoutSeconds": 16,
+      "defaultOption": "o3_wait",
+      "options": [
+        {
+          "id": "o3_sm2",
+          "text": "SM-2. Kill it at range and stop worrying about it.",
+          "requires": { "contactClassified": { "id": "c_drone_1", "min": 40 } },
+          "effects": [
+            { "setFlag": { "key": "first_drone_handled", "value": true } },
+            { "setFlag": { "key": "auth.release.c_drone_1", "value": true } },
+            { "setFlag": { "key": "spent_missile_early", "value": true } }
+          ]
+        },
+        {
+          "id": "o3_gun",
+          "text": "Let it come inside thirteen and take it with the gun.",
+          "requires": { "contactWithin": { "id": "c_drone_1", "nm": 40 } },
+          "effects": [
+            { "setFlag": { "key": "first_drone_handled", "value": true } },
+            { "setFlag": { "key": "auth.release.c_drone_1", "value": true } },
+            { "setFlag": { "key": "chose_the_gun", "value": true } },
+            { "queueNode": { "nodeId": "n3_gun_ready", "afterSeconds": 8 } }
+          ]
+        },
+        {
+          "id": "o3_wait",
+          "text": "Hold. Let it develop.",
+          "effects": [ { "setFlag": { "key": "first_drone_handled", "value": true } } ]
+        }
+      ]
+    },
+    {
+      "id": "n3_gun_ready",
+      "speaker": "tao",
+      "trigger": { "flag": "never_fires_on_its_own", "is": true },
+      "text": "Mount is trained out and tracking. We will not get a shot until it is inside thirteen miles, which means it will be close enough that a miss matters. Understood, Captain."
+    },
+    {
+      "id": "n3_second_drone",
+      "speaker": "cic",
+      "trigger": { "contactDetected": { "id": "c_drone_2" } },
+      "priority": 8,
+      "text": "Second one behind it, same profile, and this one is not tracking toward the merchants. It is tracking toward us.",
+      "focus": [ "c_drone_2" ]
+    },
+    {
+      "id": "n3_decoy_up",
+      "speaker": "esm",
+      "trigger": { "contactDetected": { "id": "c_decoy" } },
+      "priority": 7,
+      "text": "Third track, Captain — same size of return, same height, and it is crossing rather than closing. It is not pointed at anything of ours.",
+      "focus": [ "c_decoy" ]
+    },
+    {
+      "id": "n3_decoy_xo",
+      "speaker": "xo",
+      "trigger": { "nodeFired": "n3_decoy_up" },
+      "text": "They are cheap and we are not. Somewhere on that bank there is a man whose entire job tonight is making us shoot at plywood."
+    },
+    {
+      "id": "n3_esm_warning",
+      "speaker": "esm",
+      "trigger": { "contactDetected": { "id": "c_asm" } },
+      "priority": 10,
+      "text": "SEEKER, Captain. Active seeker head on a low fast track out of the east — this one is emitting because it has already stopped caring whether we know.",
+      "focus": [ "c_asm", "c_convoy_b" ],
+      "effects": [ { "setFlag": { "key": "auth.release.c_asm", "value": true } } ]
+    },
+    {
+      "id": "n3_asm_choice",
+      "speaker": "tao",
+      "trigger": { "all": [
+        { "contactDetected": { "id": "c_asm" } },
+        { "not": { "contactDestroyed": { "id": "c_asm" } } },
+        { "not": { "flag": "asm_handled", "is": true } } ] },
+      "priority": 10,
+      "text": "That one is real and it is fast. Captain.",
+      "focus": [ "c_asm", "c_convoy_b" ],
+      "timeoutSeconds": 10,
+      "defaultOption": "o3_asm_hold",
+      "options": [
+        {
+          "id": "o3_asm_engage",
+          "text": "Take it. Whatever is left on the rail.",
+          "requires": { "contactDetected": { "id": "c_asm" } },
+          "effects": [
+            { "setFlag": { "key": "asm_handled", "value": true } },
+            { "setFlag": { "key": "engaged_the_asm", "value": true } }
+          ]
+        },
+        {
+          "id": "o3_asm_interpose",
+          "text": "Get us onto the threat axis. If it picks us instead, we can take it.",
+          "requires": { "contactWithin": { "id": "c_convoy_b", "nm": 30 } },
+          "effects": [
+            { "setFlag": { "key": "asm_handled", "value": true } },
+            { "setFlag": { "key": "interposed_3", "value": true } }
+          ]
+        },
+        {
+          "id": "o3_asm_hold",
+          "text": "Nothing left worth spending. Let CIWS have it.",
+          "effects": [ { "setFlag": { "key": "asm_handled", "value": true } } ]
+        }
+      ]
+    },
+    {
+      "id": "n3_bingo",
+      "speaker": "tao",
+      "trigger": { "magazineBelow": { "magazine": "sm2", "count": 3 } },
+      "priority": 9,
+      "text": "Captain, we are down to two birds. After that it is the gun and the Phalanx and whatever the merchants can do for themselves."
+    },
+    {
+      "id": "n3_winchester",
+      "speaker": "tao",
+      "trigger": { "magazineBelow": { "magazine": "sm2", "count": 1 } },
+      "priority": 10,
+      "text": "Rail is empty, Captain. Everything from here is inside thirteen miles."
+    },
+    {
+      "id": "n3_convoy_hit",
+      "speaker": "cic",
+      "trigger": { "any": [
+        { "contactDestroyed": { "id": "c_convoy_a" } },
+        { "contactDestroyed": { "id": "c_convoy_b" } } ] },
+      "priority": 10,
+      "text": "We have lost one of the hulls, Captain. She is burning and she is not under command."
+    },
+    {
+      "id": "n3_ownship_hit",
+      "speaker": "xo",
+      "trigger": { "flag": "sys.ownshipDamaged", "is": true },
+      "priority": 10,
+      "text": "We are hit. Damage control is moving. Captain, the gate is still ours whether we like it or not — nobody is coming to take it off us."
+    },
+    {
+      "id": "n3_airliner_warning",
+      "speaker": "fleet",
+      "trigger": { "all": [
+        { "contactWithin": { "id": "c_airway", "nm": 50 } },
+        { "roeIs": "free" } ] },
+      "priority": 9,
+      "text": "VALLEY FORGE, FIFTH FLEET. Reminder to all units: the corridor over your gate is active tonight and scheduled traffic is transiting at altitude. Weapons free does not extend to the airway.",
+      "focus": [ "c_airway" ]
+    },
+    {
+      "id": "n3_gate_clear",
+      "speaker": "cic",
+      "trigger": { "all": [
+        { "timeAfter": 1900 },
+        { "not": { "contactDestroyed": { "id": "c_convoy_a" } } },
+        { "not": { "contactDestroyed": { "id": "c_convoy_b" } } } ] },
+      "priority": 8,
+      "text": "Both hulls are north of the gate and opening, Captain. Whatever is still out there tonight, it is behind them now."
+    },
+    {
+      "id": "n3_dhow",
+      "speaker": "cic",
+      "trigger": { "contactDetected": { "id": "c_dhow" } },
+      "text": "Slow surface contact crossing the gate south to north. Small return, no lights showing on the optics.",
+      "focus": [ "c_dhow" ]
+    },
+    {
+      "id": "n3_dhow_xo",
+      "speaker": "xo",
+      "trigger": { "nodeFired": "n3_dhow" },
+      "text": "There are people who cross this water at night because night is when nobody stops them. Most of them are not carrying anything that concerns us."
+    },
+    {
+      "id": "n3_quiet",
+      "speaker": "xo",
+      "trigger": { "all": [
+        { "timeAfter": 900 },
+        { "not": { "contactWithin": { "id": "c_drone_1", "nm": 35 } } } ] },
+      "text": "It goes quiet between waves, Captain. That is not the same as it being over, and the gap is when people start looking at the wrong screen."
+    }
+  ],
+
+  "objectives": [
+    {
+      "id": "ob3_a",
+      "type": "protect",
+      "text": "MV KESTREL POINT clears the gate",
+      "params": { "contactId": "c_convoy_a" }
+    },
+    {
+      "id": "ob3_b",
+      "type": "protect",
+      "text": "MV SABLE RUN clears the gate",
+      "params": { "contactId": "c_convoy_b" }
+    },
+    {
+      "id": "ob3_gate",
+      "type": "hold",
+      "text": "Hold the gate — remain within 12 nm of the strait centre",
+      "params": { "pos": { "x": 0, "y": 0 }, "nm": 12, "seconds": 1500 }
+    },
+    {
+      "id": "ob3_survive",
+      "type": "survive",
+      "text": "VALLEY FORGE survives the night",
+      "params": {}
+    },
+    {
+      "id": "ob3_clean",
+      "type": "flag",
+      "optional": true,
+      "text": "No civilian casualties",
+      "params": { "key": "sys.neutralKilled", "value": false }
+    }
+  ],
+
+  "outcomes": [
+    {
+      "id": "inquiry3",
+      "rating": "INQUIRY",
+      "condition": { "any": [
+        { "flag": "sys.neutralKilled", "is": true },
+        { "flag": "sys.friendlyKilled", "is": true } ] },
+      "title": "Board of Inquiry Convened",
+      "debrief": "On a night when everything in the air was a legitimate question, this ship answered one of them wrong.\n\nWeapons free is an authority, not an instruction. It removes the requirement to ask permission. It does not remove the requirement to be right, and the recorder does not grade on how busy the picture was.\n\nThere were four things in that sky and three of them deserved what they got."
+    },
+    {
+      "id": "gauntlet_clean",
+      "rating": "S",
+      "condition": { "all": [
+        { "flag": "ob3_a", "is": "complete" },
+        { "flag": "ob3_b", "is": "complete" },
+        { "flag": "ob3_gate", "is": "complete" },
+        { "not": { "flag": "sys.neutralKilled", "is": true } },
+        { "not": { "flag": "sys.ownshipDamaged", "is": true } } ] },
+      "title": "The Gate Held",
+      "debrief": "Both hulls are north and this ship is unmarked.\n\nThe interesting number in tonight's log is not what was destroyed. It is what was not shot at: the crossing track that was never going to hit anything, and the airliner at thirty-three thousand feet that a tired watch team could have turned into an international incident.\n\nA cruiser's magazine is the one thing on board that does not regenerate. Spending it on the right four seconds is the entire skill."
+    },
+    {
+      "id": "gauntlet_costly",
+      "rating": "B",
+      "condition": { "all": [
+        { "flag": "ob3_a", "is": "complete" },
+        { "flag": "ob3_b", "is": "complete" },
+        { "not": { "flag": "sys.neutralKilled", "is": true } } ] },
+      "title": "Through, and Marked",
+      "debrief": "The merchants are through. This ship paid for it.\n\nThe damage is repairable and the magazine is not. What the log shows is a night where the answer to every contact was a missile until there were no missiles, and then the answer had to become something else under a great deal more pressure.\n\nThe gun was always there. It was there from the first wave."
+    },
+    {
+      "id": "hull_lost",
+      "rating": "F",
+      "condition": { "any": [
+        { "contactDestroyed": { "id": "c_convoy_a" } },
+        { "contactDestroyed": { "id": "c_convoy_b" } } ] },
+      "title": "Hull Lost in the Strait",
+      "debrief": "One of the ships you were holding the gate for is on the bottom of it.\n\nEvery round in the magazine was accounted for by the time the one that mattered arrived — which is the shape this engagement always has, on this shore, against people who have worked out exactly what a cruiser costs to empty.\n\nThe cheap things were cheap on purpose."
+    },
+    {
+      "id": "fallback3",
+      "rating": "C",
+      "condition": { "always": true },
+      "title": "Night Watch",
+      "debrief": "The gate held, more or less, and the night ended the way these nights end: with a magazine count, a damage report, and no particular sense of having won anything.\n\nThat is the job. It will be the job again tomorrow."
+    }
+  ]
+}

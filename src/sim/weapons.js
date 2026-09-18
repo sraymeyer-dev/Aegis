@@ -161,11 +161,14 @@ export function contactFires(state, shooter, targetId) {
   logTrack(state, shooter, 'hostileAct', `opened fire on ${targetId}`);
 
   const id = `p_${++projectileCounter}`;
-  const speed = 480;
+  // A torpedo runs at 45 knots and gives its target minutes, not seconds.
+  // That difference is the whole texture of an ASW engagement.
+  const subsurface = shooter.domain === 'subsurface';
+  const speed = subsurface ? 45 : 480;
   const flightTime = Math.max(2, range(shooter.pos, target.pos) / (speed * KTS_TO_NM_PER_SEC));
   state.projectiles.push({
     id,
-    name: 'Inbound',
+    name: subsurface ? 'Torpedo' : 'Inbound',
     domain: 'missile',
     weapon: 'hostile',
     shooterId: shooter.id,
@@ -180,12 +183,12 @@ export function contactFires(state, shooter, targetId) {
     launchedAt: state.clock.t,
     flightTime,
     confidence: 100,
-    apparent: { allegiance: 'hostile', type: 'inbound weapon', authority: 5 },
+    apparent: { allegiance: 'hostile', type: subsurface ? 'torpedo' : 'inbound weapon', authority: 5 },
     displayedClass: 'confirmed-hostile',
     abortable: false,
-    truth: { allegiance: 'hostile', type: 'inbound weapon' },
+    truth: { allegiance: 'hostile', type: subsurface ? 'torpedo' : 'inbound weapon' },
     resolution: { pending: [] },
-    pkOverride: 0.55,
+    pkOverride: subsurface ? 0.8 : 0.55,
   });
   state.events.push({ kind: 'weapon:inbound', projectileId: id, targetId });
 }
@@ -227,7 +230,8 @@ export function stepWeapons(state, dt) {
     p.pos.y += v.y * nm;
 
     // CIWS engages inbound weapons automatically. No player order exists for it.
-    if (p.targetId === 'ownship' && range(own.pos, p.pos) <= WEAPONS.ciws.range && !p.ciwsEngaged) {
+    if (p.targetId === 'ownship' && p.name !== 'Torpedo'
+        && range(own.pos, p.pos) <= WEAPONS.ciws.range && !p.ciwsEngaged) {
       p.ciwsEngaged = true;
       if (state.rng.chance(WEAPONS.ciws.pk.missile)) {
         p.alive = false;

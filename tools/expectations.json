@@ -12,5 +12,47 @@
       "outcome": "inquiry_neutral",
       "rating": "INQUIRY"
     }
+  },
+  "02-shadow-play": {
+    "procedural": {
+      "outcome": "survey_lost",
+      "rating": "F"
+    },
+    "timid": {
+      "outcome": "survey_lost",
+      "rating": "F"
+    },
+    "trigger-happy": {
+      "outcome": "survey_lost",
+      "rating": "F"
+    }
+  },
+  "03-red-sea-gauntlet": {
+    "procedural": {
+      "outcome": "hull_lost",
+      "rating": "F"
+    },
+    "timid": {
+      "outcome": "hull_lost",
+      "rating": "F"
+    },
+    "trigger-happy": {
+      "outcome": "hull_lost",
+      "rating": "F"
+    }
+  },
+  "04-black-lantern": {
+    "procedural": {
+      "outcome": "no_strike",
+      "rating": "D"
+    },
+    "timid": {
+      "outcome": "no_strike",
+      "rating": "D"
+    },
+    "trigger-happy": {
+      "outcome": "no_strike",
+      "rating": "D"
+    }
   }
 }

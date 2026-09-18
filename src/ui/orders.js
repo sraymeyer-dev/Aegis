@@ -79,19 +79,29 @@ export function createOrders(root, state, bus, { onPlotToggle } = {}) {
       : `No contact selected &middot; ${ROE_LABEL[state.roe]}`;
 
     /* --- sensors: the resolution ladder ---------------------------- */
+    const sub = c?.domain === 'subsurface';
     elSensors.replaceChildren(...SENSOR_VERBS.map((v) => {
       const rung = LADDER[v.rung];
+      // Below the surface the ladder is shorter and the top of it is a helo:
+      // IFF does not answer underwater and nobody gets a visual on a submarine.
+      const label = sub && v.id === 'illuminate' ? 'Active ping'
+        : sub && v.id === 'investigate' ? 'Helo prosecute'
+        : sub && v.id === 'hail' ? 'Gertrude'
+        : v.label;
+      const notApplicable = sub && v.id === 'iff';
       const pending = c?.resolution.pending.find((p) => p.action === v.id);
       const done = c ? isRungDone(c, v.id) : false;
-      const disabled = !c || !c.detected || !c.alive || done || !!pending;
-      return button(v.label, v.key, {
+      const disabled = !c || !c.detected || !c.alive || done || !!pending || notApplicable;
+      return button(label, v.key, {
         disabled,
         danger: v.danger,
         running: !!pending,
         progress: pending ? 1 - pending.remaining / pending.total : null,
         title: !c ? 'Select a contact first'
+          : notApplicable ? 'A submerged contact does not answer an IFF interrogation'
           : done ? 'Already done for this contact'
-          : `${rung.seconds}s · +${rung.confidence} confidence${v.danger ? ' · provocative' : ''}`,
+          : `${rung.seconds}s · +${rung.confidence} confidence${v.danger ? ' · provocative' : ''}`
+            + (sub && v.id === 'illuminate' ? ' · goes active, and everyone hears it' : ''),
         onClick: () => bus.intent(`order:${v.id}`, { id: c.id }),
       });
     }));

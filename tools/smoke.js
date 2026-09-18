@@ -55,12 +55,13 @@ const run = async () => {
 
   /* --- M6: mission select ---------------------------------------- */
   await page.waitForSelector('.mission-card', { timeout: 8000 });
-  check('mission select lists the manifest', (await page.locator('.mission-card').count()) === 1);
+  const missionCount = await page.locator('.mission-card').count();
+  check('mission select lists the whole manifest', missionCount >= 4, `${missionCount} missions`);
   check('title is the renamed game', (await page.title()).includes('Horizon Command'));
   await page.screenshot({ path: `${OUT}/01-select.png` });
 
   /* --- M6: briefing ---------------------------------------------- */
-  await page.click('.mission-card');
+  await page.locator('.mission-card').first().click();
   await page.waitForSelector('#btn-start');
   check('briefing renders the authored markdown',
     (await page.locator('#screen-briefing .prose').first().innerText()).includes('ARGO SPIRIT'));

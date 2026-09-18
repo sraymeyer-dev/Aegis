@@ -1,0 +1,923 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "id": "02-shadow-play",
+    "title": "Shadow Play",
+    "subtitle": "Eastern Mediterranean \u00b7 0210 local",
+    "briefing": "## TASKING\n\nScreen the cable survey ship **MV THEODORA** while she works the seabed lay east of the deconfliction line.\n\nTwo days ago a diesel boat left its pen and has not been accounted for since. Fleet believes it is in this basin. Nobody can tell you where.\n\n## WHAT IS DIFFERENT DOWN THERE\n\nA submerged contact does not answer an interrogation and you will never get a visual on one. Passive sonar reaches **8 nm**. Going active reaches **15 nm** \u2014 and every boat in the basin hears you do it.\n\nThe only thing that resolves a submerged contact for certain is a helicopter prosecution, and it takes **two minutes** with the aircraft committed.\n\nYou have one helicopter.\n\n**ROE: SELF-DEFENCE ONLY.** Engagement requires a demonstrated hostile act.",
+    "difficulty": 4,
+    "durationLimit": 3600,
+    "initialRoe": "selfDefense",
+    "origin": {
+      "lat": 34.1,
+      "lon": 33.4
+    }
+  },
+  "ownship": {
+    "name": "USS VALLEY FORGE",
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "course": 45,
+    "speed": 12,
+    "magazines": {
+      "sm2": 8,
+      "harpoon": 4,
+      "asroc": 6,
+      "gun": 200
+    },
+    "sensors": {
+      "radarRange": 120,
+      "surfaceRange": 25,
+      "sonarRangePassive": 8,
+      "sonarRangeActive": 15
+    }
+  },
+  "contacts": [
+    {
+      "id": "c_theodora",
+      "name": "MV THEODORA",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "friendly",
+        "type": "survey vessel"
+      },
+      "pos": {
+        "x": 4,
+        "y": 6
+      },
+      "course": 45,
+      "speed": 4,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 12,
+            "y": 14
+          },
+          {
+            "x": 16,
+            "y": 20
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "medium",
+        "emitting": true,
+        "iffMode": "civil"
+      },
+      "hp": 200
+    },
+    {
+      "id": "c_trawler",
+      "name": "Trawler",
+      "domain": "surface",
+      "truth": {
+        "allegiance": "neutral",
+        "type": "trawler"
+      },
+      "pos": {
+        "x": -14,
+        "y": 11
+      },
+      "course": 120,
+      "speed": 9,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 14,
+            "y": 2
+          },
+          {
+            "x": 24,
+            "y": -6
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": true,
+        "iffMode": "none"
+      },
+      "hp": 30
+    },
+    {
+      "id": "c_boat",
+      "name": "Submerged contact",
+      "domain": "subsurface",
+      "truth": {
+        "allegiance": "hostile",
+        "type": "Kilo"
+      },
+      "pos": {
+        "x": 8,
+        "y": -3
+      },
+      "course": 330,
+      "speed": 11,
+      "spawnAt": 240,
+      "behavior": {
+        "kind": "attack",
+        "targetId": "c_theodora",
+        "weaponRange": 8,
+        "firesAt": 6,
+        "reloadSeconds": 240
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": false,
+        "iffMode": "none"
+      },
+      "deception": {
+        "profile": "biologic"
+      },
+      "hp": 60
+    },
+    {
+      "id": "c_friendly_boat",
+      "name": "Submerged contact",
+      "domain": "subsurface",
+      "truth": {
+        "allegiance": "friendly",
+        "type": "Los Angeles"
+      },
+      "pos": {
+        "x": 1,
+        "y": -5
+      },
+      "course": 60,
+      "speed": 8,
+      "spawnAt": 600,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 9,
+            "y": 5
+          },
+          {
+            "x": 18,
+            "y": 13
+          }
+        ]
+      },
+      "sensor": {
+        "rcs": "small",
+        "emitting": false,
+        "iffMode": "none"
+      },
+      "hp": 90
+    },
+    {
+      "id": "c_mpa",
+      "name": "NAVY 118",
+      "domain": "air",
+      "truth": {
+        "allegiance": "friendly",
+        "type": "maritime patrol aircraft"
+      },
+      "pos": {
+        "x": -50,
+        "y": 44
+      },
+      "course": 135,
+      "speed": 210,
+      "alt": 9000,
+      "spawnAt": 1500,
+      "behavior": {
+        "kind": "patrol",
+        "waypoints": [
+          {
+            "x": 20,
+            "y": -12
+          },
+          {
+            "x": -50,
+            "y": 44
+          }
+        ],
+        "loop": true
+      },
+      "sensor": {
+        "rcs": "medium",
+        "emitting": true,
+        "iffMode": "mil"
+      },
+      "hp": 40
+    }
+  ],
+  "speakers": {
+    "tao": {
+      "name": "LT REYES",
+      "role": "TAO",
+      "portrait": "tao",
+      "color": "amber"
+    },
+    "sonar": {
+      "name": "STG1 OKAFOR",
+      "role": "SONAR",
+      "portrait": "esm",
+      "color": "green"
+    },
+    "xo": {
+      "name": "CDR ELLIS",
+      "role": "XO",
+      "portrait": "xo",
+      "color": "green"
+    },
+    "cic": {
+      "name": "OS2 KOVAC",
+      "role": "CIC WATCH",
+      "portrait": "cic",
+      "color": "green"
+    },
+    "fleet": {
+      "name": "SIXTH FLEET",
+      "role": "COMMAND",
+      "portrait": "fleet",
+      "color": "amber"
+    },
+    "helo": {
+      "name": "MAGNUM 41",
+      "role": "HELO",
+      "portrait": "external",
+      "color": "green"
+    }
+  },
+  "nodes": [
+    {
+      "id": "n2_open",
+      "speaker": "xo",
+      "trigger": {
+        "always": true
+      },
+      "priority": 8,
+      "text": "THEODORA is on her lay doing four knots and she cannot manoeuvre while the cable is out. If anything happens down there she is a stationary target with a mile of steel hanging off her stern.",
+      "focus": [
+        "c_theodora"
+      ]
+    },
+    {
+      "id": "n2_sonar_brief",
+      "speaker": "sonar",
+      "trigger": {
+        "timeAfter": 16
+      },
+      "text": "Passive stack is quiet, Captain. Layer's shallow tonight, which helps us and helps him. I'd rather stay quiet as long as you'll let me \u2014 the moment we go active he knows exactly where we are and how much we care."
+    },
+    {
+      "id": "n2_trawler",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_trawler"
+        }
+      },
+      "text": "Surface track working across our screen, west to east. Nets out by the look of the return, and he's been on that line every night this week.",
+      "focus": [
+        "c_trawler"
+      ]
+    },
+    {
+      "id": "n2_trawler_xo",
+      "speaker": "xo",
+      "trigger": {
+        "nodeFired": "n2_trawler"
+      },
+      "text": "He may be fishing. He may also be somebody's ears. It does not change what we're allowed to do about him, which is nothing."
+    },
+    {
+      "id": "n2_first_contact",
+      "speaker": "sonar",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_boat"
+        }
+      },
+      "priority": 8,
+      "text": "Passive contact, Captain. Narrowband, very faint. The classifier is calling it biologic and I do not believe the classifier \u2014 it is holding a steady bearing rate and biologics wander.",
+      "focus": [
+        "c_boat"
+      ]
+    },
+    {
+      "id": "n2_prosecute_choice",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "contactDetected": {
+              "id": "c_boat"
+            }
+          },
+          {
+            "not": {
+              "flag": "boat_prosecuted",
+              "is": true
+            }
+          }
+        ]
+      },
+      "priority": 8,
+      "text": "Captain, we have something in the water we cannot name. How do you want it worked?",
+      "focus": [
+        "c_boat",
+        "c_theodora"
+      ],
+      "timeoutSeconds": 20,
+      "defaultOption": "o2_passive",
+      "options": [
+        {
+          "id": "o2_ping",
+          "text": "Go active. I want a range and I want it now.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_boat",
+              "nm": 15
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "boat_prosecuted",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "went_active_early",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n2_after_ping",
+                "afterSeconds": 12
+              }
+            }
+          ]
+        },
+        {
+          "id": "o2_helo",
+          "text": "Launch the helo. Put a dipper on that bearing.",
+          "requires": {
+            "contactDetected": {
+              "id": "c_boat"
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "boat_prosecuted",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "helo_committed",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n2_helo_away",
+                "afterSeconds": 6
+              }
+            }
+          ]
+        },
+        {
+          "id": "o2_passive",
+          "text": "Stay quiet. Hold the track on passive and let him talk.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "boat_prosecuted",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n2_after_ping",
+      "speaker": "sonar",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "Solid return, Captain \u2014 I have a range now. He heard it too. Whatever is down there just found out we are looking for it, and if there is more than one of them, they all know."
+    },
+    {
+      "id": "n2_helo_away",
+      "speaker": "helo",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "text": "MAGNUM 41 is off the deck and heading for the datum. Give me two minutes on station and I'll tell you what is down there. I cannot be in two places tonight, Captain \u2014 pick carefully."
+    },
+    {
+      "id": "n2_second_contact",
+      "speaker": "sonar",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_friendly_boat"
+        }
+      },
+      "priority": 9,
+      "text": "Captain \u2014 second submerged contact. Different bearing, different signature, and I have nothing in the library that matches it cleanly. There are two of them down there.",
+      "focus": [
+        "c_friendly_boat"
+      ]
+    },
+    {
+      "id": "n2_two_boats",
+      "speaker": "xo",
+      "trigger": {
+        "nodeFired": "n2_second_contact"
+      },
+      "priority": 8,
+      "text": "Two contacts and one helicopter. I would very much like to know whether anybody told this basin we were going to be in it."
+    },
+    {
+      "id": "n2_fleet_query",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "contactDetected": {
+              "id": "c_friendly_boat"
+            }
+          },
+          {
+            "not": {
+              "flag": "second_worked",
+              "is": true
+            }
+          }
+        ]
+      },
+      "priority": 9,
+      "text": "Two in the water, Captain, and one aircraft. Orders.",
+      "focus": [
+        "c_friendly_boat",
+        "c_boat"
+      ],
+      "timeoutSeconds": 18,
+      "defaultOption": "o2_hold_both",
+      "options": [
+        {
+          "id": "o2_ask_fleet",
+          "text": "Signal Fleet. Ask them what else is operating in this basin.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "second_worked",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "asked_fleet",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n2_fleet_answer",
+                "afterSeconds": 40
+              }
+            }
+          ]
+        },
+        {
+          "id": "o2_helo_second",
+          "text": "Send the helo to the new contact instead.",
+          "requires": {
+            "contactDetected": {
+              "id": "c_friendly_boat"
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "second_worked",
+                "value": true
+              }
+            },
+            {
+              "setFlag": {
+                "key": "helo_to_second",
+                "value": true
+              }
+            },
+            {
+              "queueNode": {
+                "nodeId": "n2_helo_second_report",
+                "afterSeconds": 120
+              }
+            }
+          ]
+        },
+        {
+          "id": "o2_hold_both",
+          "text": "Hold both on passive. Nothing has done anything yet.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "second_worked",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n2_fleet_answer",
+      "speaker": "fleet",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "priority": 10,
+      "text": "VALLEY FORGE, SIXTH FLEET. Be advised there is a friendly unit operating submerged in your basin under a separate tasking. We are working the deconfliction now. Do not prosecute a submerged contact to weapons release without positive identification. Acknowledge.",
+      "effects": [
+        {
+          "setFlag": {
+            "key": "warned_about_friendly",
+            "value": true
+          }
+        },
+        {
+          "revealTruth": {
+            "id": "c_friendly_boat"
+          }
+        }
+      ]
+    },
+    {
+      "id": "n2_helo_second_report",
+      "speaker": "helo",
+      "trigger": {
+        "flag": "never_fires_on_its_own",
+        "is": true
+      },
+      "priority": 9,
+      "text": "MAGNUM 41 \u2014 I have him on the dipper and I have a hull number off the sail. Captain, that is one of ours. He is exactly where somebody decided not to tell us he would be.",
+      "effects": [
+        {
+          "revealTruth": {
+            "id": "c_friendly_boat"
+          }
+        },
+        {
+          "setFlag": {
+            "key": "warned_about_friendly",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n2_attack_run",
+      "speaker": "sonar",
+      "trigger": {
+        "all": [
+          {
+            "contactDetected": {
+              "id": "c_boat"
+            }
+          },
+          {
+            "contactWithin": {
+              "id": "c_boat",
+              "nm": 9
+            }
+          }
+        ]
+      },
+      "priority": 9,
+      "text": "Captain, the first contact has gone quiet and steadied up. That is not a biologic and that is not a transit. He is setting up on THEODORA.",
+      "focus": [
+        "c_boat",
+        "c_theodora"
+      ]
+    },
+    {
+      "id": "n2_torpedo",
+      "speaker": "sonar",
+      "trigger": {
+        "flag": "sys.hostileAct.c_boat",
+        "is": true
+      },
+      "priority": 10,
+      "text": "TORPEDO IN THE WATER. Bearing on the first contact, running toward THEODORA. He has committed and there is no longer any question about what he is.",
+      "focus": [
+        "c_boat",
+        "c_theodora"
+      ],
+      "effects": [
+        {
+          "setRoe": {
+            "level": "free"
+          }
+        },
+        {
+          "setFlag": {
+            "key": "auth.release.c_boat",
+            "value": true
+          }
+        },
+        {
+          "setFlag": {
+            "key": "shots_fired",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "n2_release",
+      "speaker": "tao",
+      "trigger": {
+        "all": [
+          {
+            "flag": "shots_fired",
+            "is": true
+          },
+          {
+            "not": {
+              "contactDestroyed": {
+                "id": "c_boat"
+              }
+            }
+          }
+        ]
+      },
+      "priority": 10,
+      "text": "He has shot, Captain. ASROC is on the rail.",
+      "focus": [
+        "c_boat"
+      ],
+      "timeoutSeconds": 12,
+      "defaultOption": "o2_hold_fire",
+      "options": [
+        {
+          "id": "o2_asroc",
+          "text": "ASROC, that contact, shoot.",
+          "requires": {
+            "contactWithin": {
+              "id": "c_boat",
+              "nm": 12
+            }
+          },
+          "effects": [
+            {
+              "setFlag": {
+                "key": "released_on_boat",
+                "value": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "o2_evade",
+          "text": "Come between him and THEODORA. Screen her.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "screened",
+                "value": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "o2_hold_fire",
+          "text": "Hold. Make sure of the bearing first.",
+          "effects": [
+            {
+              "setFlag": {
+                "key": "held_after_torpedo",
+                "value": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n2_boat_killed",
+      "speaker": "sonar",
+      "trigger": {
+        "contactDestroyed": {
+          "id": "c_boat"
+        }
+      },
+      "priority": 9,
+      "text": "Breaking up noises on that bearing, Captain. Hull collapse. That contact is off the board."
+    },
+    {
+      "id": "n2_blue_on_blue",
+      "speaker": "xo",
+      "trigger": {
+        "contactDestroyed": {
+          "id": "c_friendly_boat"
+        }
+      },
+      "priority": 10,
+      "text": "Captain. Sonar has breaking-up noises on the second bearing and Fleet is calling for a unit that is not answering. I am logging the time and I am logging the order."
+    },
+    {
+      "id": "n2_theodora_hit",
+      "speaker": "cic",
+      "trigger": {
+        "contactDestroyed": {
+          "id": "c_theodora"
+        }
+      },
+      "priority": 10,
+      "text": "THEODORA is gone, Captain. She went down by the stern in under ninety seconds with the cable still attached.",
+      "focus": [
+        "c_theodora"
+      ]
+    },
+    {
+      "id": "n2_mpa",
+      "speaker": "cic",
+      "trigger": {
+        "contactDetected": {
+          "id": "c_mpa"
+        }
+      },
+      "text": "Maritime patrol is on station overhead, Captain. He'll drop a barrier for us but he is working the whole basin tonight, not just our corner of it.",
+      "focus": [
+        "c_mpa"
+      ]
+    },
+    {
+      "id": "n2_station",
+      "speaker": "xo",
+      "trigger": {
+        "all": [
+          {
+            "ownshipWithin": {
+              "id": "c_theodora",
+              "nm": 4
+            }
+          },
+          {
+            "timeAfter": 600
+          }
+        ]
+      },
+      "text": "Good screening position, Captain. From here we are between the survey ship and most of the basin, and a torpedo has to come through us first."
+    },
+    {
+      "id": "n2_quiet",
+      "speaker": "sonar",
+      "trigger": {
+        "all": [
+          {
+            "timeAfter": 2400
+          },
+          {
+            "contactDestroyed": {
+              "id": "c_boat"
+            }
+          }
+        ]
+      },
+      "text": "Basin is quiet again, Captain. Just the trawler's screws and the layer noise. It is a strange thing to listen to a place where something used to be."
+    }
+  ],
+  "objectives": [
+    {
+      "id": "ob2_protect",
+      "type": "protect",
+      "text": "MV THEODORA survives the lay",
+      "params": {
+        "contactId": "c_theodora"
+      }
+    },
+    {
+      "id": "ob2_screen",
+      "type": "hold",
+      "text": "Screen THEODORA \u2014 hold within 4 nm",
+      "params": {
+        "contactId": "c_theodora",
+        "nm": 4,
+        "seconds": 1500
+      }
+    },
+    {
+      "id": "ob2_identify",
+      "type": "identify",
+      "text": "Positively identify the second submerged contact",
+      "params": {
+        "contactId": "c_friendly_boat",
+        "min": 100
+      },
+      "optional": true
+    },
+    {
+      "id": "ob2_no_blue",
+      "type": "flag",
+      "text": "No friendly losses",
+      "params": {
+        "key": "sys.friendlyKilled",
+        "value": false
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "inquiry_sub",
+      "rating": "INQUIRY",
+      "condition": {
+        "contactDestroyed": {
+          "id": "c_friendly_boat"
+        }
+      },
+      "title": "Board of Inquiry Convened",
+      "debrief": "The second contact was an American submarine on a tasking this ship was never told about.\n\nThere will be a finding about the deconfliction message that did not reach you, and it will be a real finding, and it will not matter. The order was given from this chair.\n\nWhat the recorder shows is that a submerged contact cannot be seen, cannot be hailed and cannot be interrogated \u2014 and that this ship had exactly one instrument that could have named it, and used that instrument somewhere else, or not at all.\n\nOne helicopter. Two contacts. That was the whole problem, and it was visible from the first minute."
+    },
+    {
+      "id": "inquiry_neutral",
+      "rating": "INQUIRY",
+      "condition": {
+        "flag": "sys.neutralKilled",
+        "is": true
+      },
+      "title": "Board of Inquiry Convened",
+      "debrief": "The trawler was a trawler.\n\nHe had been working that line every night for a week, which was in the brief, and he was on the surface where anyone could look at him, which is more than could be said for either of the contacts that actually mattered tonight."
+    },
+    {
+      "id": "clean_asw",
+      "rating": "S",
+      "condition": {
+        "all": [
+          {
+            "flag": "ob2_protect",
+            "is": "complete"
+          },
+          {
+            "flag": "ob2_screen",
+            "is": "complete"
+          },
+          {
+            "contactDestroyed": {
+              "id": "c_boat"
+            }
+          },
+          {
+            "not": {
+              "flag": "sys.friendlyKilled",
+              "is": true
+            }
+          }
+        ]
+      },
+      "title": "Prosecuted and Screened",
+      "debrief": "The boat is on the bottom, THEODORA finished her lay, and the submarine that was never supposed to be here went home not knowing how close it came.\n\nThat last part is the work. Two contacts in the same water, indistinguishable on passive, and this ship put steel on exactly one of them.\n\nThe basin is quiet. It should not have been this hard to find out who was in it."
+    },
+    {
+      "id": "survey_lost",
+      "rating": "F",
+      "condition": {
+        "contactDestroyed": {
+          "id": "c_theodora"
+        }
+      },
+      "title": "Survey Ship Lost",
+      "debrief": "THEODORA went down with the cable still streaming.\n\nThe boat was on the passive stack for a long time before it shot. It was faint, it was ambiguous, and the classifier called it a biologic \u2014 and the classifier is a piece of software that has never been wrong in a way anybody remembers, right up until it is.\n\nShe was doing four knots and could not turn. Everything that could be done for her had to be done by this ship, and in advance."
+    },
+    {
+      "id": "boat_escaped",
+      "rating": "C",
+      "condition": {
+        "not": {
+          "contactDestroyed": {
+            "id": "c_boat"
+          }
+        }
+      },
+      "title": "Contact Lost",
+      "debrief": "THEODORA finished her lay and nobody died.\n\nThe boat is still out there. It will be somebody else's problem in a week, in a different basin, against a ship that has not read this debrief.\n\nRestraint was the correct call and it was also not a resolution. Both of those are true at once, which is the thing about this work that nobody puts in the manual."
+    },
+    {
+      "id": "fallback2",
+      "rating": "B",
+      "condition": {
+        "always": true
+      },
+      "title": "Screen Complete",
+      "debrief": "The lay is finished and the ship is intact.\n\nWhat happened underneath is in the log as a series of bearings and a set of decisions, and the honest reading is that some of them were guesses that happened to be right."
+    }
+  ]
+}
